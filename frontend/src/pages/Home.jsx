@@ -5,6 +5,7 @@ import Texts from '../components/Texts/Texts'
 import Newsletter from '../components/Newsletter/Newsletter'
 import FindMarket from '../components/FindMarket/FindMarket'
 import Footer from '../components/Footer/Footer'
+import Commodity from '../components/Commodity/Commodity'
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Texts />
       <Newsletter />
       <FindMarket />
+      <Commodity />
       <Footer />
     </div>
   )
