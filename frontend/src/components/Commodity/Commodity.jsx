@@ -10,7 +10,7 @@ const Commodity = () => {
     const {activeFood, foodMapping} = useContext(AppContext);
     
   return (
-    <section className="px-10">
+    <section className="px-10 duration-500">
       <div className="content rounded-[4px] border border-[#DEDEDE]">
         <div className="up flex p-4 h-[73px bg-[#F1F1F1] text-[#555555] text-[15px] font-semibold justify-between">
             <div className="w-[25%] flex items-center justify-start">
@@ -27,6 +27,7 @@ const Commodity = () => {
                         <FoodItem 
                             key={index}
                             id={item.id}
+                            numbering={true}
                             name={item.name}
                         />
                     )
@@ -35,13 +36,14 @@ const Commodity = () => {
           </div>
           <div className="right w-[80%] grid grid-cols-3 gap-[2rem] py-[1rem]">
             {
-                    Object.entries(commodity_list[foodMapping[activeFood]].price[0]).map(([state, price], index) => (
-                            <FoodItemPrice 
-                                key={index}
-                                state={state}
-                                price={price}
-                            />
-                    ))
+                Object.entries(commodity_list[foodMapping[activeFood]].price[0]).map(([state, price], index) => (
+                        <FoodItemPrice 
+                            key={index}
+                            state={state}
+                            price={price}
+                            admin={false}
+                        />
+                ))
             }
           </div>
         </div>

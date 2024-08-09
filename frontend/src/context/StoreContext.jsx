@@ -4,6 +4,7 @@ export const AppContext = createContext('');
 
 const AppContextProvider = (props) => {
 
+    const [signedUp, setSignedUp] = useState(false);
     const [themarket, setMarket] = useState('foods');
     const [activeFood, setActiveFood] = useState('maize');
     const foodMapping = {
@@ -27,9 +28,11 @@ const AppContextProvider = (props) => {
     };
 
     const contextValue = {
+        signedUp,
         activeFood,
         themarket,
         foodMapping,
+        setSignedUp,
         switchActiveFood,
         switchMarket,
     };

@@ -3,8 +3,6 @@ import petroleumImg from '../../assets/images/petroleum.png';
 import foodsImg from '../../assets/images/foods.png'
 import rainfallImg from '../../assets/images/rainfall.png';
 import MarketCard from './MarketCard';
-import { AppContext } from '../../context/StoreContext';
-import { useContext } from 'react';
 
 const FindMarket = () => {
     

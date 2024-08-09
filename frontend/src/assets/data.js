@@ -2,6 +2,7 @@ export const commodity_list = [
     {
         id: 1,
         name: 'Maize',
+        type: 'Grains',
         price: [
             {
                 Oyo: 'N20,000',
@@ -26,6 +27,7 @@ export const commodity_list = [
     {
         id: 2,
         name: 'Melon',
+        type: 'Cucurbits',
         price: [
             {
                 Oyo: 'N40,000',
@@ -50,6 +52,7 @@ export const commodity_list = [
     {
         id: 3,
         name: 'Honey',
+        type: 'Produce Section',
         price: [
             {
                 Oyo: 'N70,000',
@@ -74,6 +77,7 @@ export const commodity_list = [
     {
         id: 4,
         name: 'Ginger',
+        type: 'Herbaceous',
         price: [
             {
                 Oyo: 'N20,000',
@@ -98,6 +102,7 @@ export const commodity_list = [
     {
         id: 5,
         name: 'Pepper',
+        type: 'Vegetables',
         price: [
             {
                 Oyo: 'N20,000',
@@ -122,6 +127,7 @@ export const commodity_list = [
     {
         id: 6,
         name: 'Rice',
+        type: 'Cereals',
         price: [
             {
                 Oyo: 'N20,000',
@@ -146,6 +152,7 @@ export const commodity_list = [
     {
         id: 7,
         name: 'Yam',
+        type: 'Tubbers',
         price: [
             {
                 Oyo: 'N20,000',
@@ -170,6 +177,7 @@ export const commodity_list = [
     {
         id: 8,
         name: 'Garri',
+        type: 'Tubbers',
         price: [
             {
                 Oyo: 'N20,000',
@@ -194,6 +202,7 @@ export const commodity_list = [
     {
         id: 9,
         name: 'Beans',
+        type: 'Legumes',
         price: [
             {
                 Oyo: 'N20,000',
