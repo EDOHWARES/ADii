@@ -12,14 +12,14 @@ const FoodItemPrice = ({ state, price, admin }) => {
           type="text"
           placeholder={price}
           required
-          className="w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#c6c6c6] font-medium indent-4"
+          className=" max-w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#c6c6c6] font-medium px-[1rem]"
         />
       ) : (
         <input
           type="text"
           value={price}
           readOnly
-          className="w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#c6c6c6] font-medium indent-4"
+          className=" max-w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#c6c6c6] font-medium px-[1rem]"
         />
       )}
     </div>
