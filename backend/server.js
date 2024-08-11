@@ -3,6 +3,7 @@ import express from 'express';
 import connectDB from './config/db.js';
 import cors from 'cors';
 import 'dotenv/config.js';
+import commodityRouter from './routes/commodityRoute.js';
 
 
 // Declarations
@@ -17,6 +18,8 @@ app.use(cors());
 connectDB();
 
 // Endpoints
+app.use('/api/commodity', commodityRouter);
+
 app.get('/', (req, res) => {
     res.send('API is WORKING...')
 })
