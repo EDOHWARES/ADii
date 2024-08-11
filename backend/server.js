@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 import cors from 'cors';
 import 'dotenv/config.js';
 import commodityRouter from './routes/commodityRoute.js';
+import emailRouter from './routes/emailRouter.js';
 
 
 // Declarations
@@ -19,6 +20,7 @@ connectDB();
 
 // Endpoints
 app.use('/api/commodity', commodityRouter);
+app.use('/api/email', emailRouter);
 
 app.get('/', (req, res) => {
     res.send('API is WORKING...')
