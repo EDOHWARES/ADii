@@ -4,6 +4,7 @@ export const AppContext = createContext('');
 
 const AppContextProvider = (props) => {
 
+    const serverUrl = 'http://localhost:3003';
     const [signedUp, setSignedUp] = useState(false);
     const [themarket, setMarket] = useState('foods');
     const [activeFood, setActiveFood] = useState('maize');
@@ -28,6 +29,7 @@ const AppContextProvider = (props) => {
     };
 
     const contextValue = {
+        serverUrl,
         signedUp,
         activeFood,
         themarket,

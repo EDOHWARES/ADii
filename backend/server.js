@@ -5,6 +5,8 @@ import cors from 'cors';
 import 'dotenv/config.js';
 import commodityRouter from './routes/commodityRoute.js';
 import emailRouter from './routes/emailRouter.js';
+import adminRouter from './routes/adminRoute.js';
+import restrictMobile from './middlewares/restrictMobileAccess.js';
 
 
 // Declarations
@@ -21,6 +23,7 @@ connectDB();
 // Endpoints
 app.use('/api/commodity', commodityRouter);
 app.use('/api/email', emailRouter);
+app.use('/api/admin', restrictMobile, adminRouter);
 
 app.get('/', (req, res) => {
     res.send('API is WORKING...')

@@ -1,13 +1,43 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { commodity_list } from "../../assets/data";
 import FoodItem from "../../components/Commodity/FoodItem";
 import { AppContext } from "../../context/StoreContext";
 import FoodItemPrice from "../../components/Commodity/FoodItemPrice";
 import { MdCancelPresentation } from "react-icons/md";
 import { MdMenu } from "react-icons/md";
+import axios from 'axios';
+import {} from 'react-router-dom';
+import { toast } from "react-toastify";
 
 const AdminBoard = () => {
-  const { activeFood, foodMapping } = useContext(AppContext);
+
+  const [error, setError] = useState(null);
+  console.log(error);
+  const { activeFood, foodMapping, serverUrl} = useContext(AppContext);
+
+  const loadAdminBoard = async () => {
+    console.log('working')
+    const resp = await axios.get(`${serverUrl}/api/admin`);
+    if (resp.data.success === false) {
+      setError(resp.data.message);
+    } else {
+      toast.success('Access granted');
+    };
+  };
+
+
+  useEffect(() => {
+    loadAdminBoard();
+  }, []);
+
+
+  if (error) {
+    return (
+      <div>
+        {error}
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-[4rem] py-6 w-[1165px] mx-auto">
