@@ -12,13 +12,11 @@ import { toast } from "react-toastify";
 const AdminBoard = () => {
 
   const [error, setError] = useState(null);
-  console.log(error);
   const { activeFood, foodMapping, serverUrl} = useContext(AppContext);
 
   const loadAdminBoard = async () => {
-    console.log('working')
     const resp = await axios.get(`${serverUrl}/api/admin`);
-    if (resp.data.success === false) {
+    if (resp.data.success == false) {
       setError(resp.data.message);
     } else {
       toast.success('Access granted');
@@ -33,7 +31,7 @@ const AdminBoard = () => {
 
   if (error) {
     return (
-      <div>
+      <div className="w-screen bg-white h-screen flex items-center justify-center text-red-600 text-[1.5rem]">
         {error}
       </div>
     )

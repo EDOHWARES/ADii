@@ -2,7 +2,7 @@ import React from 'react'
 
 const Newsletter = () => {
   return (
-    <form
+    <form id='newsletter'
         className='flex flex-col gap-[1rem] px-4 md:px-10 mb-[3rem]'
     >
       <input type="email" name="" id="" placeholder='Enter Your Email Address'

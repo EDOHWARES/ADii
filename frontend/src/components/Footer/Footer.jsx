@@ -4,7 +4,7 @@ import { LuMail } from "react-icons/lu";
 
 const Footer = () => {
   return (
-    <div className='bg-[#D6D6D6] px-4 md:px-10 py-4 w-full mt-[25rem]'>
+    <div id='footer' className='bg-[#D6D6D6] px-4 md:px-10 py-4 w-full mt-[25rem]'>
       <div className="logo"><img src={logo} alt="logo" className='w-[144px]'/></div>
 
       <div className='flex flex-col md:flex-row justify-between w-full gap-[3rem]'>
