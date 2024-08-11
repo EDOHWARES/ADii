@@ -1,7 +1,21 @@
 import commodityModel from "../models/commodityModel.js";
 
-const fetchCommodityList = async (req, res) => {
-    
+const getAllCommodities = async (req, res) => {
+    try {
+        const commodities = await commodityModel.find();
+
+        res.status(200).json({
+            success: true,
+            commodities,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch commodities',
+            error: error.message,
+        });
+    };
 };
 
 const upsertCommodity = async (req, res) => {
@@ -46,4 +60,4 @@ const upsertCommodity = async (req, res) => {
     };
 };
 
-export {fetchCommodityList, upsertCommodity};
+export {getAllCommodities, upsertCommodity};

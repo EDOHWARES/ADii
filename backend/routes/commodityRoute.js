@@ -1,9 +1,9 @@
 import express from 'express';
-import { fetchCommodityList, upsertCommodity } from '../controllers/commodityController.js';
+import { getAllCommodities, upsertCommodity } from '../controllers/commodityController.js';
 
 const commodityRouter = express.Router();
 
-commodityRouter.get('/fetch', fetchCommodityList);
+commodityRouter.get('/fetch', getAllCommodities);
 commodityRouter.post('/upsert', upsertCommodity);
 
 export default commodityRouter;
