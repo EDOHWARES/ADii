@@ -36,7 +36,7 @@ const Header = () => {
                 </li>
             </ul>
         </nav>
-        <div onClick={() => setShowMobileNav(prev => !prev)} className='md:hidden text-3xl border border-gray-400 p-1 hover:bg-gray-100 duration-300'>
+        <div onClick={() => setShowMobileNav(prev => !prev)} className='md:hidden cursor-pointer text-3xl border border-gray-400 p-1 hover:bg-gray-100 duration-300'>
           <TiThMenuOutline />
         </div>
       </div>

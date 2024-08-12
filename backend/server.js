@@ -7,6 +7,7 @@ import commodityRouter from './routes/commodityRoute.js';
 import emailRouter from './routes/emailRouter.js';
 import adminRouter from './routes/adminRoute.js';
 import restrictMobile from './middlewares/restrictMobileAccess.js';
+import userRouter from './routes/userRoute.js';
 
 
 // Declarations
@@ -24,6 +25,7 @@ connectDB();
 app.use('/api/commodity', commodityRouter);
 app.use('/api/email', emailRouter);
 app.use('/api/admin', restrictMobile, adminRouter);
+app.use('/api/user', userRouter);
 
 app.get('/', (req, res) => {
     res.send('API is WORKING...')
