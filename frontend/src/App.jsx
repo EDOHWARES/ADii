@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import {ThreeCircles} from 'react-loader-spinner';
+import Add from './pages/Admin/Add';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path='auth' element={<Auth />} />
             <Route path='admin-auth' element={<AdminAuth />} />
             <Route path='admin' element={<AdminBoard />} />
+            <Route path='/admin/add' element={<Add />} />
             <Route path='*' />
           </Routes>
         </BrowserRouter>
