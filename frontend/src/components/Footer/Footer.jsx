@@ -4,13 +4,16 @@ import { LuMail } from "react-icons/lu";
 import { AppContext } from '../../context/StoreContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import {RotatingLines} from 'react-loader-spinner';
 
 const Footer = () => {
 
+  const [loading, setLoading] = useState(false);
   const {serverUrl} = useContext(AppContext);
   const [email, setEmail] = useState('');
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const resp = await axios.post(`${serverUrl}/api/email/save`, {email});
@@ -18,10 +21,12 @@ const Footer = () => {
 
     if (!resp.data.success) {
       toast.error(resp.data.message);
-      setEmail('')
+      setEmail('');
+      setLoading(false);
     } else {
       toast.success(resp.data.message);
       setEmail('');
+      setLoading(false);
     };
 
   };
@@ -40,7 +45,24 @@ const Footer = () => {
                 <LuMail />
                 <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" name="email" id="email" placeholder='Email' required className='bg-transparent focus:bg-transparent border-none outline-none w-full h-full placeholder:text-[14px] placeholder:text-[#292D32] placeholder:font-medium' />
             </div>
-            <button type='submit' className='w-[30%] bg-[#006630] h-[60px] px-6 py-4 text-white rounded-r-[4px] text-sm md:text-[15px] font-medium hover:bg-[#01401f] focus:outline focus:outline-green-500 duration-500 flex items-center justify-center'>Join Newsletter</button>
+            <button type='submit' className={`w-[30%] bg-[#006630] h-[60px] px-6 py-4 text-white rounded-r-[4px] text-sm md:text-[15px] font-medium hover:bg-[#01401f] focus:outline focus:outline-green-500 duration-500 flex items-center justify-center ${loading ? 'bg-[#276100ce]' : ''}`}>
+              {
+                loading ?
+                <RotatingLines
+                  visible={true}
+                  height="36"
+                  width="36"
+                  color="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  ariaLabel="rotating-lines-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+                : 
+                "Join Newsletter"
+              }
+            </button>
         </form>
       </div>
       
