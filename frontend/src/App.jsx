@@ -3,12 +3,12 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Auth from './pages/Auth';
 import Home from './pages/Home';
 import AdminAuth from './pages/Admin/AdminAuth';
-import AdminBoard from './pages/Admin/AdminBoard';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import {ThreeCircles} from 'react-loader-spinner';
 import Add from './pages/Admin/Add';
+import Update from './pages/Admin/Update';
 
 function App() {
 
@@ -43,8 +43,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='auth' element={<Auth />} />
-            <Route path='admin-auth' element={<AdminAuth />} />
-            <Route path='admin' element={<AdminBoard />} />
+            <Route path='/admin/auth' element={<AdminAuth/>} />
+            <Route path='admin' element={<Update />} />
             <Route path='/admin/add' element={<Add />} />
             <Route path='*' />
           </Routes>

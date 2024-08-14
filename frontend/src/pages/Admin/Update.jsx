@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from "react-toastify";
 
-const AdminBoard = () => {
+const Update = () => {
 
   const [showNav, setShowNav] = useState(false);
   const [error, setError] = useState(null);
@@ -39,7 +39,7 @@ const AdminBoard = () => {
   }
 
   return (
-    <div className="flex flex-col gap-[4rem] py-6 w-[1165px] mx-auto">
+    <div className="md:flex flex-col gap-[4rem] py-6 w-[1165px] mx-auto">
       <div className="w-full flex items-center justify-between font-semibold text-[16px] text-[#393939]">
         <div onClick={() => setShowNav(prev => !prev)} className="relative cursor-pointer">
           <MdMenu className={`cursor-pointer border-2 text-2xl border-transparent ${showNav ? 'border-gray-600' : ''}`} />
@@ -80,4 +80,4 @@ const AdminBoard = () => {
   );
 };
 
-export default AdminBoard;
+export default Update;

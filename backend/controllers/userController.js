@@ -10,7 +10,7 @@ const createToken = (id) => {
 
 // Register User
 const registerUser = async (req, res) => {
-    const {email, newPassword, confirmPassword} = req.body;
+    const {email, password, confirmPassword} = req.body;
 
     try {
         // check if user already exists
@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
             });
         };
 
-        // Validate email format & strong password
+        // Validate email format
         if (!validator.isEmail(email)) {
             return res.json({
                 success: false,
@@ -31,14 +31,15 @@ const registerUser = async (req, res) => {
         };
 
         // Compare new-password and confirm-password
-        if (newPassword !== confirmPassword) {
+        if (password != confirmPassword) {
+            console.log(password, confirmPassword);
             return res.json({
                 success: false,
-                message: 'Passwords Not Match!',
+                message: 'Passwords Do Not Match!',
             });
         };
 
-        if (newPassword.length < 8 || confirmPassword.length < 8) {
+        if (password.length < 8 || confirmPassword.length < 8) {
             return res.json({
                 success: false,
                 message: 'Please Enter A Strong Password'
@@ -47,7 +48,7 @@ const registerUser = async (req, res) => {
 
         // Hashing(encrypting) user password
         const salt = await bcryptjs.genSalt(11);
-        const hashedPassword = await bcryptjs.hash(newPassword, salt);
+        const hashedPassword = await bcryptjs.hash(password, salt);
 
         const newUser = new userModel({
             email: email,
@@ -112,4 +113,4 @@ const loginUser = async (req, res) => {
     };
 };
 
-export {registerUser, loginUser, logoutUser};
+export {registerUser, loginUser};

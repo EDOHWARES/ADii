@@ -1,11 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const AppContext = createContext('');
 
 const AppContextProvider = (props) => {
 
-    const serverUrl = 'http://localhost:3003';
+    const [token, setToken] = useState('');
     const [signedUp, setSignedUp] = useState(false);
+    const serverUrl = 'http://localhost:3003';
     const [themarket, setMarket] = useState('foods');
     const [activeFood, setActiveFood] = useState('maize');
     const foodMapping = {
@@ -28,13 +29,22 @@ const AppContextProvider = (props) => {
         setMarket(themarket);
     };
 
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            setToken(localStorage.getItem('token'));
+            setSignedUp(true);
+        };
+    })
+
     const contextValue = {
-        serverUrl,
         signedUp,
+        setSignedUp,
+        token,
+        setToken,
+        serverUrl,
         activeFood,
         themarket,
         foodMapping,
-        setSignedUp,
         switchActiveFood,
         switchMarket,
     };
