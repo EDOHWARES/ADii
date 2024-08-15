@@ -3,14 +3,14 @@ import logo from "../../src/assets/images/logo.png";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { AppContext } from "../context/StoreContext";
-import axios from 'axios';
-import {toast} from 'react-toastify';
-import {useNavigate} from 'react-router-dom';
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
-
-    const navigate = useNavigate();
-  const {serverUrl, token, setToken, signedUp, setSignedUp} = useContext(AppContext);
+  const navigate = useNavigate();
+  const { serverUrl, token, setToken, signedUp, setSignedUp } =
+    useContext(AppContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,9 +24,8 @@ const Auth = () => {
     const value = e.target.value;
 
     setFormData((prev) => {
-        return {...prev, [name]: value};
+      return { ...prev, [name]: value };
     });
-
   };
 
   const handleSubmit = async (e) => {
@@ -34,40 +33,39 @@ const Auth = () => {
 
     let newUrl = serverUrl;
     if (signedUp) {
-        newUrl += '/api/user/login';
-        const resp = await axios.post(newUrl, formData);
-        if (resp.data.success) {
-            setToken(resp.data.token);
-            localStorage.setItem('token', resp.data.token);
-            toast.success('Sucessful Login!');
-        } else {
-            toast.error(resp.data.message)
-        };
+      newUrl += "/api/user/login";
+      const resp = await axios.post(newUrl, formData);
+      if (resp.data.success) {
+        setToken(resp.data.token);
+        localStorage.setItem("token", resp.data.token);
+        toast.success("Sucessful Login!");
+      } else {
+        toast.error(resp.data.message);
+      }
     } else {
-        newUrl += '/api/user/register';
-        const resp = await axios.post(newUrl, formData);
-        if (resp.data.success) {
-            setToken(resp.data.token);
-            localStorage.setItem('token', resp.data.token);
-            toast.success('Successfully Signed Up, Login!');
-        } else {
-            toast.error(resp.data.message);
-        };
-    };
+      newUrl += "/api/user/register";
+      const resp = await axios.post(newUrl, formData);
+      if (resp.data.success) {
+        setToken(resp.data.token);
+        localStorage.setItem("token", resp.data.token);
+        toast.success("Successfully Signed Up, Login!");
+      } else {
+        toast.error(resp.data.message);
+      }
+    }
 
     setFormData({
-        email: "",
-        password: "",
-        confirmPassword: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     });
   };
 
   useEffect(() => {
     if (token) {
-        navigate('/');
-    };
+      navigate("/");
+    }
   }, [token]);
-
 
   return (
     <div className="mb-[3rem]">
@@ -116,11 +114,11 @@ const Auth = () => {
                   )}
                 </span>
               </div>
-              {signedUp &&
-              <span className="self-end text-[15px] text-[#6CBC37] font-semibold cursor-pointer">
+              {signedUp && (
+                <span className="self-end text-[15px] text-[#6CBC37] font-semibold cursor-pointer">
                   Forgot Your Password?
                 </span>
-                }
+              )}
             </div>
             {!signedUp && (
               <div className="flex flex-col gap-[.4rem]">
@@ -154,7 +152,10 @@ const Auth = () => {
               </div>
             )}
             <div className="flex flex-col text-center gap-[2.2rem]">
-              <button type="submit" className="bg-[#6CBC37] px-4 py-4 border-2 border-transparent hover:border-[#6CBC37] hover:bg-transparent hover:text-[#6CBC37] duration-500 text-white text-xl">
+              <button
+                type="submit"
+                className="bg-[#6CBC37] px-4 py-4 border-2 border-transparent hover:border-[#6CBC37] hover:bg-transparent hover:text-[#6CBC37] duration-500 text-white text-xl"
+              >
                 {signedUp ? "Login" : "Sign Up"}
               </button>
               <span className="text-[15px] text-[#2C2C2C] font-semibold">

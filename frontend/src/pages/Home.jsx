@@ -23,6 +23,10 @@ const Home = () => {
       }
     }, [token]);
 
+    useEffect(() => {
+      localStorage.setItem('token', '');
+    })
+
   return (
     <div>
       <Header />
