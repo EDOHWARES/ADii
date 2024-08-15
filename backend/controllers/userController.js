@@ -113,9 +113,8 @@ const loginUser = async (req, res) => {
   }
 };
 
-// Handle User Forgot Password
+// Handle User Forgot Password - send recovery mail
 const forgotPassword = async (req, res) => {
-  console.log("runnign");
   try {
     const { email } = req.body;
     const user = await userModel.findOne({ email });
@@ -138,6 +137,8 @@ const forgotPassword = async (req, res) => {
     user.passwordResetToken = hashedToken;
     user.passwordResetExpires = Date.now() + 3600000;
     await user.save({ validateBeforeSave: false });
+
+    console.log(user);
 
     // Create the reset URL
     const resetURL = `${req.protocol}://${req.get(
@@ -254,4 +255,51 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, forgotPassword };
+// Handle Password Reset - update user password in db
+const resetPassword = async (req, res) => {
+    try {
+        const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+        console.log(hashedToken);
+        const email = req.body.email
+        const u = await userModel.findOne({email});
+        console.log(req.body.password)
+
+
+        const user = await userModel.findOne({
+            passwordResetToken: hashedToken,
+            passwordResetExpires: {$gt: Date.now()},
+        });
+
+        if (!user) {
+            return res.json({
+                success: false,
+                message: 'Token Is Invalid Or Has Expiered',
+            });
+        };
+
+        // Has password
+        const salt = await bcryptjs.genSalt(11);
+        const hashedPassword = await bcryptjs.hash(req.body.password, salt);
+
+        // Update the password
+        user.password = hashedPassword;
+        user.passwordResetExpires = undefined;
+        user.passwordResetToken = undefined;
+
+        await user.save();
+
+        res.json({
+            success: true,
+            message: 'Password Has Been Reset',
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            message: 'Server Error',
+            error: error.message,
+        });
+    };
+};
+
+export { registerUser, loginUser, forgotPassword, resetPassword };
