@@ -63,4 +63,41 @@ const upsertCommodity = async (req, res) => {
     };
 };
 
-export {getAllCommodities, upsertCommodity};
+const deleteCommodity = async (req, res) => {
+    try {
+        const {name} = req.body;
+        let deletedCommodity = await commodityModel.findOneAndDelete({name});
+
+        if (deletedCommodity) {
+            return res.json({
+                success: true,
+                message: 'Commodity Deleted Successfully',
+            });
+        } else {
+            return res.json({
+                success: false,
+                message: 'Commodity Not Found!'
+            });
+        };
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            message: 'Server Error',
+            error: error.message,
+        });
+    };
+};
+
+const clearAllCommodities = async (req, res) => {
+    const result = await commodityModel.deleteMany({});
+
+    if (result) {
+        res.json({
+            success: true,
+            message: 'All Commodities Cleared!'
+        });
+    };
+};
+
+export {getAllCommodities, upsertCommodity, clearAllCommodities, deleteCommodity};
