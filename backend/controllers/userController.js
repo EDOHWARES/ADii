@@ -4,6 +4,8 @@ import bcryptjs from "bcryptjs";
 import validator from "validator";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import dotenv from 'dotenv';
+dotenv.config();
 
 // create token
 const createToken = (id) => {

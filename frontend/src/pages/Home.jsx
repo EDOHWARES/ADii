@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Header from '../components/Header/Header'
 import Hero from '../components/Hero/Hero'
 import Texts from '../components/Texts/Texts'
@@ -21,11 +21,7 @@ const Home = () => {
       if (!token) {
         navigate('/auth')
       }
-    }, [token]);
-
-    useEffect(() => {
-      localStorage.setItem('token', '');
-    })
+    }, [token, navigate]);
 
   return (
     <div>

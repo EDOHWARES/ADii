@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logo from '../../assets/images/logo.png';
 import './Header.css';
 import { TiThMenuOutline } from "react-icons/ti";
@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   const [showMobileNav, setShowMobileNav] = useState(false);
   const [activeNav, setActiveNav] = useState('/');
-  console.log(activeNav)
 
   // handle nav click
   const handleNavClick = (nav) => {

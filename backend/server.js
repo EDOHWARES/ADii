@@ -2,7 +2,6 @@
 import express from 'express';
 import connectDB from './config/db.js';
 import cors from 'cors';
-import 'dotenv/config.js';
 import commodityRouter from './routes/commodityRoute.js';
 import emailRouter from './routes/emailRouter.js';
 import adminRouter from './routes/adminRoute.js';

@@ -1,11 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, } from "react";
+import PropTypes from 'prop-types';
 
-export const AppContext = createContext('');
+export const AppContext = createContext(null);
 
-const AppContextProvider = (props) => {
+const AppContextProvider = ({children}) => {
 
     const [token, setToken] = useState('');
-    const [signedUp, setSignedUp] = useState(false);
+    console.log(token)
+    const [signedUp, setSignedUp] = useState(true);
     const serverUrl = 'http://localhost:3003';
     const [themarket, setMarket] = useState('foods');
     const [activeFood, setActiveFood] = useState('maize');
@@ -34,7 +36,7 @@ const AppContextProvider = (props) => {
             setToken(localStorage.getItem('token'));
             setSignedUp(true);
         };
-    })
+    }, [token]);
 
     const contextValue = {
         signedUp,
@@ -51,9 +53,13 @@ const AppContextProvider = (props) => {
 
     return (
         <AppContext.Provider value={contextValue}>
-            {props.children}
+            {children}
         </AppContext.Provider>
     )
+};
+
+AppContextProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default AppContextProvider;

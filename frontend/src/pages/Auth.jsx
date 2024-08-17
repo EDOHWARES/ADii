@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from "../../src/assets/images/logo.png";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -36,8 +36,11 @@ const Auth = () => {
       newUrl += "/api/user/login";
       const resp = await axios.post(newUrl, formData);
       if (resp.data.success) {
-        setToken(resp.data.token);
-        localStorage.setItem("token", resp.data.token);
+        const token = resp.data.token;
+        setToken(token);
+        console.log(token);
+        localStorage.setItem("token", token);
+        console.log(token);
         toast.success("Sucessful Login!");
       } else {
         toast.error(resp.data.message);
@@ -46,8 +49,9 @@ const Auth = () => {
       newUrl += "/api/user/register";
       const resp = await axios.post(newUrl, formData);
       if (resp.data.success) {
-        setToken(resp.data.token);
-        localStorage.setItem("token", resp.data.token);
+        const token = resp.data.success;
+        setToken(token);
+        localStorage.setItem("token", token);
         toast.success("Successfully Signed Up, Login!");
       } else {
         toast.error(resp.data.message);
@@ -65,7 +69,7 @@ const Auth = () => {
     if (token) {
       navigate("/");
     }
-  }, [token]);
+  },[token, navigate]);
 
   return (
     <div className="mb-[3rem]">
