@@ -6,7 +6,6 @@ export const AppContext = createContext(null);
 const AppContextProvider = ({children}) => {
 
     const [token, setToken] = useState('');
-    console.log(token)
     const [signedUp, setSignedUp] = useState(true);
     const serverUrl = 'http://localhost:3003';
     const [themarket, setMarket] = useState('foods');

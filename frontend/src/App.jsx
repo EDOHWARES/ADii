@@ -46,7 +46,7 @@ function App() {
             <Route path='/admin/auth' element={<AdminAuth/>} />
             <Route path='admin' element={<Update />} />
             <Route path='/admin/add' element={<Add />} />
-            <Route path='*' />
+            <Route path='*' element={<div className='text-red-500 text-xl w-full h-screen flex items-center justify-center'>Error Page, Go back!</div>} />
           </Routes>
         </BrowserRouter>
       </section>}

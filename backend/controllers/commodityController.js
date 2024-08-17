@@ -1,5 +1,7 @@
 import commodityModel from "../models/commodityModel.js";
 
+
+// Get all commodities
 const getAllCommodities = async (req, res) => {
     try {
         const commodities = await commodityModel.find();
@@ -18,6 +20,7 @@ const getAllCommodities = async (req, res) => {
     };
 };
 
+// Update or Insert commodity
 const upsertCommodity = async (req, res) => {
     const {name, type, price} = req.body;
 

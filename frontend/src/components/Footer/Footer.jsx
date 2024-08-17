@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import logo from '../../assets/images/logo.png';
 import { LuMail } from "react-icons/lu";
 import { AppContext } from '../../context/StoreContext';

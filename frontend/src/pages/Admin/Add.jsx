@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MdMenu, MdCancelPresentation } from "react-icons/md";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 const Product = ({ title, placeholder }) => {
   return (
@@ -13,6 +14,11 @@ const Product = ({ title, placeholder }) => {
       />
     </div>
   );
+};
+
+Product.propTypes = {
+  title: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 const Add = () => {
