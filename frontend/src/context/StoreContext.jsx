@@ -9,7 +9,6 @@ const AppContextProvider = ({children}) => {
     const [signedUp, setSignedUp] = useState(true);
     const serverUrl = 'http://localhost:3003';
     const [themarket, setMarket] = useState('foods');
-    const [activeFood, setActiveFood] = useState('maize');
     const foodMapping = {
         maize: 0,
         melon: 1,
@@ -20,10 +19,6 @@ const AppContextProvider = ({children}) => {
         yam: 6,
         garri: 7,
         beans: 8,
-    };
-
-    const switchActiveFood = (food) => {
-        setActiveFood(food);
     };
 
     const switchMarket = (themarket) => {
@@ -43,10 +38,8 @@ const AppContextProvider = ({children}) => {
         token,
         setToken,
         serverUrl,
-        activeFood,
         themarket,
         foodMapping,
-        switchActiveFood,
         switchMarket,
     };
 
