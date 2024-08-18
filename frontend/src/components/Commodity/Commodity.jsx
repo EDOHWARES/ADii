@@ -32,6 +32,7 @@ const Commodity = () => {
 
   useEffect(() => {
     loadCommodities();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -77,7 +78,7 @@ const Commodity = () => {
                     if (isLastElement) {
                       return null;
                     };
-                    
+
                     return (
                       <FoodItemPrice 
                         key={index}
