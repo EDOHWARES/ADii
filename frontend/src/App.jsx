@@ -7,7 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
 import {ThreeCircles} from 'react-loader-spinner';
-import Add from './pages/Admin/Add';
 import Update from './pages/Admin/Update';
 
 function App() {
@@ -45,7 +44,6 @@ function App() {
             <Route path='auth' element={<Auth />} />
             <Route path='/admin/auth' element={<AdminAuth/>} />
             <Route path='admin' element={<Update />} />
-            <Route path='/admin/add' element={<Add />} />
             <Route path='*' element={<div className='text-red-500 text-xl w-full h-screen flex items-center justify-center'>Error Page, Go back!</div>} />
           </Routes>
         </BrowserRouter>
