@@ -10,13 +10,11 @@ const restrictMobile = (req, res, next) => {
             message: 'Access restricted on mobile devices',
         });
     } else {
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             message: 'Access granted.'
         })
     };
-
-    next();
 };
 
 export default restrictMobile;
