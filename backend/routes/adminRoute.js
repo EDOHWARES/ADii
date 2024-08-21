@@ -1,5 +1,5 @@
 import express from 'express';
-import { dashboard, login } from '../controllers/adminController.js';
+import { clearAllCommodities, dashboard, deleteCommodity, login } from '../controllers/adminController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 
 const adminRouter = express.Router();
@@ -13,5 +13,7 @@ adminRouter.get('/', (req, res) => {
 
 adminRouter.post('/login', login);
 adminRouter.get('/dashboard', authMiddleware, dashboard);
+adminRouter.post('/delete-commodity', authMiddleware, deleteCommodity)
+adminRouter.post('/clear-commodity', authMiddleware, clearAllCommodities);
 
 export default adminRouter;

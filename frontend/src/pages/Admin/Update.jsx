@@ -15,7 +15,7 @@ const Update = () => {
   const {serverUrl} = useContext(AppContext);
   const [commodity_list, setCommodity_list] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeCommodity, setActiveCommodity] = useState('Melon');
+  const [activeCommodity, setActiveCommodity] = useState('');
   const [showOverlay, setShowOverlay] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [error, setError] = useState(null);
@@ -32,6 +32,7 @@ const Update = () => {
 
     if (resp.data.success) {
         setCommodity_list(resp.data.commodities);
+        setActiveCommodity(resp.data.commodities[0]['name']);
         setLoading(false);
     } else {
         console.log(resp.data.message);
@@ -90,6 +91,7 @@ const Update = () => {
   useEffect(() => {
     if (!error) {
       loadCommodities();
+      setActiveCommodity();
       loadAdminBoard();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -107,7 +109,7 @@ const Update = () => {
   return (
     <>
     {loading ?
-    <div className="w-full fixed h-screen flex items-center justify-center">
+    <div className="w-full fixed h-screen flex flex-col gap-[1.5rem] items-center justify-center">
       <MutatingDots
         visible={true}
         height="100"
@@ -119,6 +121,7 @@ const Update = () => {
         wrapperStyle={{}}
         wrapperClass=""
       />
+      <p>Wait! while we try to retrieve the data</p>
     </div>
     :
     <div className="md:flex flex-col gap-[4rem] py-6 w-[1165px] mx-auto">
@@ -126,8 +129,8 @@ const Update = () => {
         <div onClick={() => setShowNav(prev => !prev)} className="relative cursor-pointer">
           <MdMenu className={`cursor-pointer border-2 text-2xl border-transparent ${showNav ? 'border-gray-600' : ''}`} />
           {showNav && <div className="absolute top-[1.6rem] bg-[#f1f1f1] border-2 shadow-2xl w-[13rem] flex flex-col items-center justify-center text-sm font-medium text-gray-500">
-            <Link to={'/admin/dashboard'} className="border-2 w-full p-2 cursor-pointer bg-white duration-300">Update Products</Link>
             <Link to={'/'} className="border-2 w-full p-2 cursor-pointer hover:bg-white duration-300">Home Page</Link>
+            <Link className="border-2 w-full p-2 cursor-pointer bg-red-300 text-white duration-300">Clear All Commodity</Link>
           </div>}
         </div>
         <p>Product Update</p>
@@ -137,7 +140,8 @@ const Update = () => {
         <div className="top h-[73px] bg-[#F1F1F1] flex items-center font-semibold text-[15px] text-[#555555] px-4">
           <span className="w-[30%]">All Products</span>
           <span className="w-[70%] flex items-center justify-center">
-            {activeCommodity.charAt(0).toUpperCase() + activeCommodity.slice(1)}
+            {/* {activeCommodity.charAt(0).toUpperCase() + activeCommodity.slice(1)} */}
+            {activeCommodity}
           </span>
         </div>
         <div className="bottom flex items-start gap-[4rem]">
@@ -149,9 +153,6 @@ const Update = () => {
                             key={index}
                             activeCommodity={activeCommodity}
                             switchActiveCommodity={switchCommidity}
-                            id={item.id}
-                            numbering={true}
-                            type={item.type}
                             name={item.name}
                         />
                     )
@@ -161,7 +162,7 @@ const Update = () => {
           <div className="right w-[70%] grid grid-cols-3 gap-[2rem] py-[1rem]">
           {
               commodity_list.map((commodity) => {
-                if (commodity.name == activeCommodity) {
+                if (commodity['name'] == activeCommodity) {
                   return Object.entries(commodity.price[0]).map(([state, price], index) => {
                     const entries = Object.entries(commodity.price[0]);
                     const isLastElement = index === entries.length - 1;

@@ -51,6 +51,45 @@ const dashboard = async (req, res) => {
         success: true,
         dashboard: 'dashboard',
     })
-}
+};
 
-export { login, dashboard };
+// Delete Commodity
+const deleteCommodity = async (req, res) => {
+    try {
+        const {name} = req.body;
+        let deletedCommodity = await commodityModel.findOneAndDelete({name});
+
+        if (deletedCommodity) {
+            return res.json({
+                success: true,
+                message: 'Commodity Deleted Successfully',
+            });
+        } else {
+            return res.json({
+                success: false,
+                message: 'Commodity Not Found!'
+            });
+        };
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success: false,
+            message: 'Server Error',
+            error: error.message,
+        });
+    };
+};
+
+// Clear All Commodity
+const clearAllCommodities = async (req, res) => {
+    const result = await commodityModel.deleteMany({});
+
+    if (result) {
+        res.json({
+            success: true,
+            message: 'All Commodities Cleared!'
+        });
+    };
+};
+
+export { login, dashboard, clearAllCommodities, deleteCommodity };
