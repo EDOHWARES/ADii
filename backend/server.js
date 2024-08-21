@@ -23,7 +23,7 @@ connectDB();
 // Endpoints
 app.use('/api/commodity', commodityRouter);
 app.use('/api/email', emailRouter);
-app.use('/api/admin',  adminRouter);
+app.use('/api/admin', restrictMobile,  adminRouter);
 app.use('/api/user', userRouter);
 
 app.get('/', (req, res) => {

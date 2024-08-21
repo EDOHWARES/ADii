@@ -19,6 +19,7 @@
     "express-session": "^1.18.0",
     "express-useragent": "^1.0.15",
     "jsonwebtoken": "^9.0.2",
+    "mobile-detect": "^1.4.5",
     "mongoose": "^8.5.2",
     "nodemailer": "^6.9.14",
     "nodemon": "^3.1.4",

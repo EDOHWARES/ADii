@@ -18,8 +18,6 @@ const login = async (req, res) => {
 
         // Compare the provided password with the hashed and stored one
         const isMatch = await bcryptjs.compare(password, admin.password);
-        console.log(password);
-        console.log(admin.password);
 
         if (!isMatch) {
             return res.status(401).json({

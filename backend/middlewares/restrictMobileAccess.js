@@ -1,20 +1,16 @@
-import useragent from 'express-useragent';
+import detect from 'mobile-detect';
 
 const restrictMobile = (req, res, next) => {
-    const source = req.headers['user-agent'];
-    const ua = useragent.parse(source);
+    const md = new detect(req.headers['user-agent']);
 
-    if (ua.isMobile) {
+    if (md.mobile()) {
         return res.status(403).json({
             success: false,
             message: 'Access restricted on mobile devices',
         });
-    } else {
-        return res.status(200).json({
-            success: true,
-            message: 'Access granted.'
-        })
     };
+
+    next();
 };
 
 export default restrictMobile;
