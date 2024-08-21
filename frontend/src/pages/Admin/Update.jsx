@@ -126,7 +126,7 @@ const Update = () => {
         <div onClick={() => setShowNav(prev => !prev)} className="relative cursor-pointer">
           <MdMenu className={`cursor-pointer border-2 text-2xl border-transparent ${showNav ? 'border-gray-600' : ''}`} />
           {showNav && <div className="absolute top-[1.6rem] bg-[#f1f1f1] border-2 shadow-2xl w-[13rem] flex flex-col items-center justify-center text-sm font-medium text-gray-500">
-            <Link to={'/admin'} className="border-2 w-full p-2 cursor-pointer bg-white duration-300">Update Products</Link>
+            <Link to={'/admin/dashboard'} className="border-2 w-full p-2 cursor-pointer bg-white duration-300">Update Products</Link>
             <Link to={'/'} className="border-2 w-full p-2 cursor-pointer hover:bg-white duration-300">Home Page</Link>
           </div>}
         </div>

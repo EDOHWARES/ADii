@@ -48,4 +48,11 @@ const login = async (req, res) => {
     }
 };
 
-export { login };
+const dashboard = async (req, res) => {
+    res.json({
+        success: true,
+        dashboard: 'dashboard',
+    })
+}
+
+export { login, dashboard };

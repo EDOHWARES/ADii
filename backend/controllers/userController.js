@@ -36,7 +36,6 @@ const registerUser = async (req, res) => {
 
     // Compare new-password and confirm-password
     if (password != confirmPassword) {
-      console.log(password, confirmPassword);
       return res.json({
         success: false,
         message: "Passwords Do Not Match!",

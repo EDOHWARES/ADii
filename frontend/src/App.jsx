@@ -44,7 +44,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='auth' element={<Auth />} />
             <Route path='/admin/auth' element={<AdminAuth/>} />
-            <Route path='admin' element={<Update />} />
+            <Route path='admin/dashboard' element={<Update />} />
             <Route path='*' element={<Error />} />
           </Routes>
         </BrowserRouter>
