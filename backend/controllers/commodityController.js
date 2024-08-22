@@ -6,10 +6,20 @@ const getAllCommodities = async (req, res) => {
     try {
         const commodities = await commodityModel.find();
 
-        res.status(200).json({
-            success: true,
-            commodities,
-        });
+        if (commodities.length > 0) {
+            return res.status(200).json({
+                success: true,
+                commodities,
+            });
+        } else {
+            return res.status(201).json({
+                success: true,
+                commodities: 'none',
+                message: 'No available commdity!'
+            })
+        }
+
+        
     } catch (error) {
         console.log(error);
         res.status(500).json({

@@ -10,7 +10,7 @@ const Commodity = () => {
   const { serverUrl } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
-  const [commodity_list, setCommodity_list] = useState([]);
+  const [commodity_list, setCommodity_list] = useState([" "]);
   const [activeCommodity, setActiveCommodity] = useState("");
 
   const switchCommidity = (e) => {
@@ -21,6 +21,7 @@ const Commodity = () => {
     setLoading(true);
 
     const resp = await axios.get(`${serverUrl}/api/commodity/fetch`);
+    console.log(resp)
 
     if (resp.data.success) {
       setCommodity_list(resp.data.commodities);
@@ -44,7 +45,7 @@ const Commodity = () => {
             <span className="">All Commodities</span>
           </div>
           <span className="w-full md:w-[75%] flex items-center justify-center">
-            {activeCommodity.charAt(0).toUpperCase() + activeCommodity.slice(1)}
+            {activeCommodity}
           </span>
         </div>
 
@@ -66,7 +67,7 @@ const Commodity = () => {
         ) : (
           <div className="down flex items-start gap-[1rem] md:gap-[4rem] pr-[1rem]">
             <div className="left w-[30%] h-full flex flex-col border-r">
-              {commodity_list.map((item, index) => {
+              {commodity_list?.map((item, index) => {
                 return (
                   <FoodItem
                     key={index}

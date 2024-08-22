@@ -20,6 +20,21 @@ const Update = () => {
   const [showNav, setShowNav] = useState(false);
   const [error, setError] = useState(null);
 
+  const clearCommodities = async () => {
+    if (confirm('Are you sure you want to delete all commodities ? ')) {
+      setLoading(true);
+      const resp = await axios.post(`${serverUrl}/api/admin/clear-commodity`);
+
+      if (resp.message.success) {
+        setLoading(false);
+        toast.success(resp.data.message);
+      } else {
+        setLoading(false);
+        toast.error(resp.data.message);
+      }
+    }
+  };
+
   const switchCommidity = (e) => {
     setActiveCommodity(e.target.textContent);
   };
@@ -30,11 +45,13 @@ const Update = () => {
 
     const resp = await axios.get(`${serverUrl}/api/commodity/fetch`);
 
-    if (resp.data.success) {
+    if (resp.data.success && resp.data.commodities.length > 0) {
         setCommodity_list(resp.data.commodities);
         setActiveCommodity(resp.data.commodities[0]['name']);
         setLoading(false);
     } else {
+        setLoading(false);
+        toast.error(resp.data.message);
         console.log(resp.data.message);
     };
 };
@@ -130,7 +147,7 @@ const Update = () => {
           <MdMenu className={`cursor-pointer border-2 text-2xl border-transparent ${showNav ? 'border-gray-600' : ''}`} />
           {showNav && <div className="absolute top-[1.6rem] bg-[#f1f1f1] border-2 shadow-2xl w-[13rem] flex flex-col items-center justify-center text-sm font-medium text-gray-500">
             <Link to={'/'} className="border-2 w-full p-2 cursor-pointer hover:bg-white duration-300">Home Page</Link>
-            <Link className="border-2 w-full p-2 cursor-pointer bg-red-300 text-white duration-300">Clear All Commodity</Link>
+            <Link onClick={clearCommodities} className="border-2 w-full p-2 cursor-pointer bg-red-300 text-white duration-300">Clear All Commodity</Link>
           </div>}
         </div>
         <p>Product Update</p>

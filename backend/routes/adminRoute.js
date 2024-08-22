@@ -14,6 +14,6 @@ adminRouter.get('/', (req, res) => {
 adminRouter.post('/login', login);
 adminRouter.get('/dashboard', authMiddleware, dashboard);
 adminRouter.post('/delete-commodity', authMiddleware, deleteCommodity)
-adminRouter.post('/clear-commodity', authMiddleware, clearAllCommodities);
+adminRouter.post('/clear-commodity', clearAllCommodities);
 
 export default adminRouter;
