@@ -25,7 +25,8 @@ const Update = () => {
       setLoading(true);
       const resp = await axios.post(`${serverUrl}/api/admin/clear-commodity`);
 
-      if (resp.message.success) {
+      if (resp.data.success) {
+        await loadCommodities();
         setLoading(false);
         toast.success(resp.data.message);
       } else {
@@ -50,9 +51,9 @@ const Update = () => {
         setActiveCommodity(resp.data.commodities[0]['name']);
         setLoading(false);
     } else {
+        setCommodity_list([]);
         setLoading(false);
         toast.error(resp.data.message);
-        console.log(resp.data.message);
     };
 };
 
@@ -123,6 +124,7 @@ const Update = () => {
     )
   };
 
+
   return (
     <>
     {loading ?
@@ -153,6 +155,11 @@ const Update = () => {
         <p>Product Update</p>
         <MdCancelPresentation className="cursor-pointer text-2xl" />
       </div>
+      {!commodity_list.length > 0 ?
+      <div>
+        <p>No available commodity, pls add!</p>
+      </div>
+      :
       <div className="border w-full border-[#DEDEDE] h-fit mx-auto rounded-[4px]">
         <div className="top h-[73px] bg-[#F1F1F1] flex items-center font-semibold text-[15px] text-[#555555] px-4">
           <span className="w-[30%]">All Products</span>
@@ -204,7 +211,7 @@ const Update = () => {
         <div className="update w-[70%] float-right mt-[3rem]">
             <button className="w-full h-[51px] rounded-[5px] py-[4px] px-[10px] bg-[#1B1B1B] text-white font-semibold text-[14px] hover:bg-[#2f2f2f]">Update</button>
         </div>
-      </div>
+      </div>}
       {showOverlay && <form onSubmit={handleCSubmit} className="overlay p-4 fixed w-[40rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[20rem] m-auto flex flex-wrap gap-[2rem] items-center justify-center bg-[#000000cc]">
 
         <div onClick={() => setShowOverlay(false)} className="absolute top-[1rem] text-white text-xl cursor-pointer hover:text-gray-300 duration-300 right-[1rem]">x</div>

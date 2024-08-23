@@ -14,7 +14,7 @@ const getAllCommodities = async (req, res) => {
         } else {
             return res.status(201).json({
                 success: true,
-                commodities: 'none',
+                commodities: [],
                 message: 'No available commdity!'
             })
         }

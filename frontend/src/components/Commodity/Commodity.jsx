@@ -10,7 +10,7 @@ const Commodity = () => {
   const { serverUrl } = useContext(AppContext);
 
   const [loading, setLoading] = useState(false);
-  const [commodity_list, setCommodity_list] = useState([" "]);
+  const [commodity_list, setCommodity_list] = useState([]);
   const [activeCommodity, setActiveCommodity] = useState("");
 
   const switchCommidity = (e) => {
@@ -21,21 +21,31 @@ const Commodity = () => {
     setLoading(true);
 
     const resp = await axios.get(`${serverUrl}/api/commodity/fetch`);
-    console.log(resp)
 
-    if (resp.data.success) {
+    if (resp.data.success && resp.data.commodities.length > 0) {
       setCommodity_list(resp.data.commodities);
       setActiveCommodity(resp.data.commodities[0]["name"]);
       setLoading(false);
     } else {
+      setCommodity_list([]);
+      setLoading(false);
       console.log(resp.data.message);
     }
   };
 
   useEffect(() => {
     loadCommodities();
+    console.log(commodity_list);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!loading && !commodity_list.length > 0) {
+    return (
+      <div className="px-4 md:px-10">
+        <p>Commodities not available...</p>
+      </div>
+    )
+  };
 
   return (
     <section className=" px-4 md:px-10 duration-500">
@@ -67,7 +77,7 @@ const Commodity = () => {
         ) : (
           <div className="down flex items-start gap-[1rem] md:gap-[4rem] pr-[1rem]">
             <div className="left w-[30%] h-full flex flex-col border-r">
-              {commodity_list?.map((item, index) => {
+              {commodity_list.map((item, index) => {
                 return (
                   <FoodItem
                     key={index}
