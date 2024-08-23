@@ -3,6 +3,8 @@ import bcryptjs from "bcryptjs";
 import adminModel from "../models/adminModel.js";
 import commodityModel from '../models/commodityModel.js';
 
+
+// Login API
 const login = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -104,4 +106,48 @@ const clearAllCommodities = async (req, res) => {
   };
 };
 
-export { login, dashboard, clearAllCommodities, deleteCommodity };
+const updateCommodity = async (req, res) => {
+  const {commodityName, updatedPrices} = req.body;
+
+  try {
+    // Find the commodity by ID
+    const commodity = await commodityModel.findOne({name: commodityName});
+
+    if (!commodity) {
+      return res.status(404).json({
+        success: false,
+        message: 'Commodity not found'
+      });
+    };
+
+    // Update prices for all states
+    const pricesObject = commodity.price[0];
+
+    for (const state in updatedPrices) {
+      if (state in pricesObject) {
+        console.log(state)
+        pricesObject[state] = updatedPrices[state];
+      };
+    };
+
+    // Save the updated commodity document
+    await commodity.save();
+
+    return res.json({
+      success: true,
+      message: 'Prices updated successfully',
+      commodity,
+    })
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      error: error.message,
+    });
+  }
+};
+
+
+
+export { login, dashboard, clearAllCommodities, deleteCommodity, updateCommodity };
