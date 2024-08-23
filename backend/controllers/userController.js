@@ -139,8 +139,6 @@ const forgotPassword = async (req, res) => {
     user.passwordResetExpires = Date.now() + 3600000;
     await user.save({ validateBeforeSave: false });
 
-    console.log(user);
-
     // Create the reset URL
     const resetURL = `${req.protocol}://${req.get(
       "host"
