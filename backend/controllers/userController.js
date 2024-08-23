@@ -148,9 +148,7 @@ const forgotPassword = async (req, res) => {
     await user.save({ validateBeforeSave: false });
 
     // Create the reset URL
-    const resetURL = `${req.protocol}://${req.get(
-      "host"
-    )}/reset-password/${resetToken}`;
+    const resetURL = `${process.env.FRONTEND_URL}/auth/reset-password?token=${resetToken}`;
 
     // Set up nodemailer
     const transporter = nodemailer.createTransport({
@@ -266,11 +264,15 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
     try {
         const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
-        console.log(hashedToken);
         const email = req.body.email
         const u = await userModel.findOne({email});
-        console.log(req.body.password)
 
+        if (!u) {
+          return res.json({
+            success: false,
+            message: 'Pls use the correct Email!'
+          });
+        };
 
         const user = await userModel.findOne({
             passwordResetToken: hashedToken,
@@ -297,7 +299,7 @@ const resetPassword = async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Password Has Been Reset',
+            message: 'Password Has Been Reset, Go Back And Login!',
         });
     } catch (error) {
         console.log(error);

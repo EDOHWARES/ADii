@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import {ThreeCircles} from 'react-loader-spinner';
 import Update from './pages/Admin/Update';
 import Error from './pages/Error';
+import ResetPassword from './pages/resetPassword';
 
 function App() {
 
@@ -44,7 +45,8 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='auth' element={<Auth />} />
             <Route path='/admin/auth' element={<AdminAuth/>} />
-            <Route path='admin/dashboard' element={<Update />} />
+            <Route path='/admin/dashboard' element={<Update />} />
+            <Route path='/auth/reset-password'  element={<ResetPassword />}/>
             <Route path='*' element={<Error />} />
           </Routes>
         </BrowserRouter>
