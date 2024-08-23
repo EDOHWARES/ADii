@@ -118,6 +118,14 @@ const loginUser = async (req, res) => {
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
+
+    if (!validator.isEmail(email)) {
+      return res.json({
+        success: false,
+        message: 'Invalid Email, Pls Enter a Valid One!',
+      })
+    };
+
     const user = await userModel.findOne({ email });
 
     if (!user) {
