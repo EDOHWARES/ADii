@@ -36,6 +36,7 @@ const Auth = () => {
     e.preventDefault();
 
     if (!resetPassword) {
+      setBtnLoader(true);
       let newUrl = serverUrl;
       if (signedUp) {
         newUrl += "/api/user/login";
@@ -44,8 +45,10 @@ const Auth = () => {
           const token = resp.data.token;
           setToken(token);
           localStorage.setItem("token", token);
+          setBtnLoader(false);
           toast.success("Sucessful Login!");
         } else {
+          setBtnLoader(false);
           toast.error(resp.data.message);
         }
       } else {
@@ -66,6 +69,8 @@ const Auth = () => {
         password: "",
         confirmPassword: "",
       });
+
+      // Handle Password Reset - Sending Reset Token to Email
     } else {
       setBtnLoader(true);
       const resp = await axios.post(`${serverUrl}/api/user/send-reset-link`, {
@@ -188,9 +193,25 @@ const Auth = () => {
               {!resetPassword && (
                 <button
                   type="submit"
-                  className="bg-[#6CBC37] px-4 py-4 border-2 border-transparent hover:border-[#6CBC37] hover:bg-transparent hover:text-[#6CBC37] duration-500 text-white text-xl"
+                  className="bg-[#6CBC37] flex items-center justify-center px-4 py-4 border-2 border-transparent hover:border-[#6CBC37] hover:bg-transparent hover:text-[#6CBC37] duration-500 text-white text-xl"
                 >
-                  {signedUp ? "Login" : "Sign Up"}
+                  {btnLoader ? (
+                    <RotatingLines
+                      visible={true}
+                      height="36"
+                      width="36"
+                      color="grey"
+                      strokeWidth="5"
+                      animationDuration="0.75"
+                      ariaLabel="rotating-lines-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  ) : signedUp ? (
+                    "Login"
+                  ) : (
+                    "Sign Up"
+                  )}
                 </button>
               )}
               {!resetPassword && (
