@@ -8,8 +8,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RotatingLines, MutatingDots } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 const Update = () => {
+
   const { serverUrl } = useContext(AppContext);
   const [commodity_list, setCommodity_list] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,6 @@ const Update = () => {
   const [activeCommodity, setActiveCommodity] = useState("");
   const [showOverlay, setShowOverlay] = useState(false);
   const [showNav, setShowNav] = useState(false);
-  const [error, setError] = useState(null);
   const [prices, setPrices] = useState({
     Abia: "",
     Adamawa: "",
@@ -199,31 +200,44 @@ const Update = () => {
 
   // Load admin board
   const loadAdminBoard = async () => {
-    const resp = await axios.get(`${serverUrl}/api/admin`);
-    if (resp.data.success == false) {
-      setError(resp.data.message);
-    } else {
-      toast.success("Access granted");
+    try {
+      const resp = await axios.get(`${serverUrl}/api/admin/dashboard`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Accept': 'application/json',
+        },
+      });
+  
+      if (resp.data.success) {
+        toast.success("Access granted!");
+      } else {
+        toast.error('You are declined access to the admin panel!');
+      }
+    } catch (error) {
+      console.error('Error fetching admin dashboard:', error);
+      toast.error('An error occurred while trying to access the admin panel.');
     }
   };
+  
 
   // Executes on page render
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    if (!error) {
-      loadCommodities();
-      setActiveCommodity();
-      loadAdminBoard();
-    }
+    const initialize = async () => {
+      await loadAdminBoard();
+      if (localStorage.getItem('adminToken')) {
+        loadCommodities();
+        setActiveCommodity();
+      } else {
+        navigate('/admin/auth');
+      }
+    };
+    initialize();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (error) {
-    return (
-      <div className="w-screen bg-white h-screen flex items-center justify-center text-red-600 text-[1.5rem]">
-        {error}
-      </div>
-    );
-  }
 
   return (
     <>
