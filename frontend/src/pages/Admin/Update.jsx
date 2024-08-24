@@ -71,35 +71,36 @@ const Update = () => {
     e.preventDefault();
     setUpdating(true);
 
-    let empty = 0
+    let empty = 0;
 
     for (const state in prices) {
       if (prices[state].length < 2) {
-        empty = empty + 1
+        empty = empty + 1;
       }
-    };
-
-    console.log(empty);
+    }
 
     if (empty == Object.keys(prices).length) {
       toast.error("You can't send an empty update to the database");
       return;
-    };
+    }
 
-    const resp = await axios.post(`${serverUrl}/api/admin/update`, {commodityName: activeCommodity, updatedPrices: prices});
+    const resp = await axios.post(`${serverUrl}/api/admin/update`, {
+      commodityName: activeCommodity,
+      updatedPrices: prices,
+    });
 
     if (resp.data.success) {
       await loadCommodities();
-      for(const state in prices) {
-        prices[state] = '';
-      };
+      for (const state in prices) {
+        prices[state] = "";
+      }
       toast.success(resp.data.message);
       setUpdating(false);
     } else {
       toast.error(resp.data.message);
-      setUpdating(false)
-    };
-  }
+      setUpdating(false);
+    }
+  };
 
   const clearCommodities = async () => {
     if (confirm("Are you sure you want to delete all commodities ? ")) {
@@ -117,8 +118,25 @@ const Update = () => {
     }
   };
 
+  // Handle Commodity name switch
   const switchCommidity = (e) => {
     setActiveCommodity(e.target.textContent);
+  };
+
+  // Handle Commodity delete
+  const handleDelete = async (e) => {
+    if (confirm(`Are you sure you want to delete ${activeCommodity}`)) {
+      const activeCommodity = e.target.previousElementSibling.textContent;
+      console.log(activeCommodity);
+      const resp = await axios.post(`${serverUrl}/api/admin/delete-commodity`, {name: activeCommodity});
+
+      if (resp.data.success) {
+        await loadCommodities();
+        toast.success(resp.data.message);
+      } else {
+        toast.error(resp.data.message);
+      }
+    }
   };
 
   // Load commodities from db
@@ -273,16 +291,28 @@ const Update = () => {
                 <div className="left flex flex-col w-[30%] border-r">
                   {commodity_list.map((item, index) => {
                     return (
-                      <FoodItem
+                      <div
                         key={index}
-                        activeCommodity={activeCommodity}
-                        switchActiveCommodity={switchCommidity}
-                        name={item.name}
-                      />
+                        className="text-gray-300 hover:text-gray-500 relative"
+                      >
+                        <FoodItem
+                          admin={true}
+                          handleDelete={handleDelete}
+                          activeCommodity={activeCommodity}
+                          switchActiveCommodity={switchCommidity}
+                          name={item.name}
+                        />
+                        <div 
+                        onClick={handleDelete}
+                        className="absolute top-0 right-[4px] cursor-pointer">x</div>
+                      </div>
                     );
                   })}
                 </div>
-                <form onSubmit={handleFormUpdate} className="flex flex-col items-center w-full">
+                <form
+                  onSubmit={handleFormUpdate}
+                  className="flex flex-col items-center w-full"
+                >
                   <div className="right w-full grid grid-cols-3 gap-[2rem] py-[1rem]">
                     {commodity_list.map((commodity) => {
                       if (commodity["name"] == activeCommodity) {
@@ -312,8 +342,13 @@ const Update = () => {
                   </div>
 
                   <div className="update w-[100%] float-right mt-[3rem]">
-                    <button type="submit" className="w-full h-[51px] rounded-[5px] py-[4px] px-[10px] bg-[#1B1B1B] text-white font-semibold text-[14px] hover:bg-[#2f2f2f]">
-                      {updating ? `Updating ${activeCommodity}...` : `Update ${activeCommodity}`}
+                    <button
+                      type="submit"
+                      className="w-full h-[51px] rounded-[5px] py-[4px] px-[10px] bg-[#1B1B1B] text-white font-semibold text-[14px] hover:bg-[#2f2f2f]"
+                    >
+                      {updating
+                        ? `Updating ${activeCommodity}...`
+                        : `Update ${activeCommodity}`}
                     </button>
                   </div>
                 </form>

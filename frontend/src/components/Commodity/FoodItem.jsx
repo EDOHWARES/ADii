@@ -13,10 +13,8 @@ const FoodItem = ({ name, type, switchActiveCommodity, activeCommodity}) => {
 };
 
 FoodItem.propTypes = {
-  id: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
-  numbering: PropTypes.bool,
   switchActiveCommodity: PropTypes.func,
   activeCommodity: PropTypes.string
 }
