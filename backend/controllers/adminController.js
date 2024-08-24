@@ -108,6 +108,7 @@ const clearAllCommodities = async (req, res) => {
 
 const updateCommodity = async (req, res) => {
   const {commodityName, updatedPrices} = req.body;
+  console.log(updatedPrices);
 
   try {
     // Find the commodity by ID
@@ -124,8 +125,7 @@ const updateCommodity = async (req, res) => {
     const pricesObject = commodity.price[0];
 
     for (const state in updatedPrices) {
-      if (state in pricesObject) {
-        console.log(state)
+      if (state in pricesObject && updatedPrices[state].length > 1 ) {
         pricesObject[state] = updatedPrices[state];
       };
     };

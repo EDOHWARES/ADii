@@ -15,6 +15,6 @@ adminRouter.post('/login', login);
 adminRouter.get('/dashboard', authMiddleware, dashboard);
 adminRouter.post('/delete-commodity', authMiddleware, deleteCommodity)
 adminRouter.post('/clear-commodity', clearAllCommodities);
-adminRouter.put('/update', updateCommodity);
+adminRouter.post('/update', updateCommodity);
 
 export default adminRouter;
