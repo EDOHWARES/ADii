@@ -178,7 +178,7 @@ const Update = () => {
     e.preventDefault();
     setLoading(true);
 
-    const resp = await axios.post(`${serverUrl}/api/commodity/upsert`, {
+    const resp = await axios.post(`${serverUrl}/api/admin/upsert`, {
       name: cForm.productName,
       type: cForm.productType,
     });
@@ -207,17 +207,29 @@ const Update = () => {
           'Accept': 'application/json',
         },
       });
-  
+    
       if (resp.data.success) {
         toast.success("Access granted!");
       } else {
-        toast.error('You are declined access to the admin panel!');
+        toast.error(resp.data.message);
       }
     } catch (error) {
-      console.error('Error fetching admin dashboard:', error);
-      toast.error('An error occurred while trying to access the admin panel.');
+      if (error.response) {
+        if (error.response.status === 403) {
+          toast.error("Your session has expired. Please log in again.");
+          localStorage.removeItem('adminToken');
+          // Optionally redirect to login
+        } else {
+          toast.error(error.response.data.message || 'An error occurred while accessing the admin dashboard.');
+        }
+      } else if (error.request) {
+        toast.error('No response received from the server. Please try again later.');
+      } else {
+        toast.error('An unexpected error occurred.');
+      }
     }
   };
+  
   
 
   // Executes on page render

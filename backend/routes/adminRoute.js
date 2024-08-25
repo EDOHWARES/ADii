@@ -1,5 +1,5 @@
 import express from 'express';
-import { clearAllCommodities, dashboard, deleteCommodity, login, updateCommodity } from '../controllers/adminController.js';
+import { clearAllCommodities, dashboard, deleteCommodity, login, updateCommodity, upsertCommodity } from '../controllers/adminController.js';
 import authMiddleWare from '../middlewares/authMiddleware.js'
 
 const adminRouter = express.Router();
@@ -16,5 +16,6 @@ adminRouter.get('/dashboard', authMiddleWare, dashboard);
 adminRouter.post('/delete-commodity', authMiddleWare, deleteCommodity)
 adminRouter.post('/clear-commodity', authMiddleWare, clearAllCommodities);
 adminRouter.post('/update', authMiddleWare, updateCommodity);
+adminRouter.post('/upsert', authMiddleWare, upsertCommodity);
 
 export default adminRouter;

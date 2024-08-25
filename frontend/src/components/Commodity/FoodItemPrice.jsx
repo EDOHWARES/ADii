@@ -34,7 +34,7 @@ FoodItemPrice.propTypes = {
   price: PropTypes.string,
   admin: PropTypes.bool,
   value: PropTypes.string,
-  name: PropTypes.name,
+  name: PropTypes.string,
   onChange: PropTypes.func
 };
 
