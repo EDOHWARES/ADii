@@ -392,7 +392,7 @@ const Update = () => {
           <p>Wait! while we process your request</p>
         </div>
       ) : (
-        <div className="md:flex flex-col gap-[4rem] py-6 w-[1165px] mx-auto">
+        <div className="md:flex flex-col gap-[4rem] px-[1rem] md:px-0 py-6 max-w-[1165px] mx-auto">
           <div className="w-full flex items-center justify-between font-semibold text-[16px] text-[#393939]">
             <div
               onClick={() => setShowNav((prev) => !prev)}
@@ -428,15 +428,15 @@ const Update = () => {
               <p>No available commodity, pls add!</p>
             </div>
           ) : (
-            <div className="border w-full border-[#DEDEDE] h-fit mx-auto rounded-[4px]">
-              <div className="top h-[73px] bg-[#F1F1F1] flex items-center font-semibold text-[15px] text-[#555555] px-4">
+            <div className="border w-full border-[#DEDEDE] h-fit mx-auto rounded-[4px] mt-[5rem] md:mt-0">
+              <div className="top h-[73px] bg-[#F1F1F1] flex items-center font-semibold text-[10px] md:text-[15px] text-[#555555] px-4">
                 <span className="w-[30%]">All Products</span>
                 <span className="w-[70%] flex items-center justify-center">
                   {/* {activeCommodity.charAt(0).toUpperCase() + activeCommodity.slice(1)} */}
                   {activeCommodity}
                 </span>
               </div>
-              <div className="bottom flex items-start gap-[4rem]">
+              <div className="bottom flex items-start gap-[.8rem] md:gap-[4rem] pr-4">
                 <div className="left flex flex-col w-[30%] border-r">
                   {commodity_list.map((item, index) => {
                     return (
@@ -462,7 +462,7 @@ const Update = () => {
                   onSubmit={handleFormUpdate}
                   className="flex flex-col items-center w-full"
                 >
-                  <div className="right w-full grid grid-cols-3 gap-[2rem] py-[1rem]">
+                  <div className="right w-full grid grid-cols-3 gap-y-6 md:gap-y-[2rem] gap-[.5rem] md:gap-[2rem] py-[1rem]">
                     {commodity_list.map((commodity) => {
                       if (commodity["name"] == activeCommodity) {
                         return Object.entries(commodity.price[0]).map(

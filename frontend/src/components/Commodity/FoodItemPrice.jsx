@@ -15,7 +15,7 @@ const FoodItemPrice = ({ state, price, admin, value, name, onChange }) => {
           value={value}
           onChange={onChange}
           name={name}
-          className=" max-w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#1e1e1e] font-medium px-[1rem]"
+          className=" max-w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[10px] md:text-[12px] leading-[18px] text-[#1e1e1e] font-medium px-[.4rem]"
         />
       ) : (
         <input
