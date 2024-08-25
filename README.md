@@ -77,25 +77,25 @@ The application also includes an admin panel where authorized administrators can
 - **Styling**: TailwindCSS.
 
 ## Project Structure
-
-commodity-platform/
-│
-├── frontend/              # React frontend
-│   ├── public/            # Public files
-│   └── src/               # Source files
-        |__ assets         # assets
-│       ├── components/    # React components
-│       ├── context/       # React context for state management
-│       ├── pages/         # Application pages
-│       └── main.jsx      # Application entry point
-│
-└── server/                # Node.js backend
-    ├── config/            # Configuration files
-    ├── controllers/       # Route controllers
-    ├── models/            # Mongoose models
-    ├── routes/            # API routes
-    ├── middleware/        # Express middleware
-    └── server.js          # Application entry point
+    ```bash
+    ADii/
+    │
+    ├── frontend/              # React frontend
+    │   ├── public/            # Public files
+    │   └── src/               # Source files   
+            |__ assets         # assets   
+    │       ├── components/    # React components
+    │       ├── context/       # React context for state management
+    │       ├── pages/         # Application pages
+    │       └── main.jsx      # Application entry point
+    │
+    └── server/                # Node.js backend
+        ├── config/            # Configuration files
+        ├── controllers/       # Route controllers
+        ├── models/            # Mongoose models
+        ├── routes/            # API routes
+        ├── middleware/        # Express middleware
+        └── server.js          # Application entry point
 
 ## Contributing
     Contributions are welcome! Please feel free to submit a Pull Request.
