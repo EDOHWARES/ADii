@@ -7,7 +7,7 @@ const AppContextProvider = ({children}) => {
 
     const [token, setToken] = useState('');
     const [signedUp, setSignedUp] = useState(true);
-    const serverUrl = 'http://localhost:3003';
+    const serverUrl = process.env.REACT_APP_API_URL;
     const [themarket, setMarket] = useState('foods');
     const foodMapping = {
         maize: 0,
