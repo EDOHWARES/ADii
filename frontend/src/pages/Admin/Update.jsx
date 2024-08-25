@@ -68,56 +68,105 @@ const Update = () => {
     });
   };
 
+  // Handle Update
   const handleFormUpdate = async (e) => {
     e.preventDefault();
     setUpdating(true);
-
-    let empty = 0;
-
-    for (const state in prices) {
-      if (prices[state].length < 2) {
-        empty = empty + 1;
-      }
-    }
-
-    if (empty == Object.keys(prices).length) {
-      toast.error("You can't send an empty update to the database");
-      return;
-    }
-
-    const resp = await axios.post(`${serverUrl}/api/admin/update`, {
-      commodityName: activeCommodity,
-      updatedPrices: prices,
-    });
-
-    if (resp.data.success) {
-      await loadCommodities();
+  
+    try {
+      // Check if all prices are empty
+      let empty = 0;
       for (const state in prices) {
-        prices[state] = "";
+        if (prices[state].length < 2) {
+          empty += 1;
+        }
       }
-      toast.success(resp.data.message);
-      setUpdating(false);
-    } else {
-      toast.error(resp.data.message);
-      setUpdating(false);
-    }
-  };
-
-  const clearCommodities = async () => {
-    if (confirm("Are you sure you want to delete all commodities ? ")) {
-      setLoading(true);
-      const resp = await axios.post(`${serverUrl}/api/admin/clear-commodity`);
-
+  
+      if (empty === Object.keys(prices).length) {
+        toast.error("You can't send an empty update to the database.");
+        return;
+      }
+  
+      // Make the API call to update the commodity prices
+      const resp = await axios.post(`${serverUrl}/api/admin/update`, {
+        commodityName: activeCommodity,
+        updatedPrices: prices,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Accept': 'application/json',
+        },
+      });
+  
       if (resp.data.success) {
-        await loadCommodities();
-        setLoading(false);
+        await loadCommodities();  // Reload commodities after a successful update
+        for (const state in prices) {
+          prices[state] = "";  // Reset the prices for all states
+        }
         toast.success(resp.data.message);
       } else {
-        setLoading(false);
-        toast.error(resp.data.message);
+        toast.error(resp.data.message || 'Failed to update commodity prices.');
+      }
+    } catch (error) {
+      console.error('Error updating commodity prices:', error);
+      if (error.response) {
+        if (error.response.status === 403) {
+          toast.error("Your session has expired. Please log in again.");
+          localStorage.removeItem('adminToken');
+          // Optionally redirect to login
+        } else {
+          toast.error(error.response.data.message || 'An error occurred while updating commodity prices.');
+        }
+      } else if (error.request) {
+        toast.error('No response received from the server. Please try again later.');
+      } else {
+        toast.error('An unexpected error occurred.');
+      }
+    } finally {
+      setUpdating(false);  // Stop the updating indicator
+    }
+  };
+  
+
+  const clearCommodities = async () => {
+    if (confirm("Are you sure you want to delete all commodities?")) {
+      setLoading(true);
+  
+      try {
+        const resp = await axios.post(`${serverUrl}/api/admin/clear-commodity`, {}, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+            'Accept': 'application/json',
+          },
+        });
+  
+        if (resp.data.success) {
+          await loadCommodities();  // Reload commodities after successful deletion
+          toast.success(resp.data.message);
+        } else {
+          toast.error(resp.data.message || 'Failed to clear commodities.');
+        }
+      } catch (error) {
+        console.error('Error clearing commodities:', error);
+        if (error.response) {
+          if (error.response.status === 403) {
+            toast.error("Your session has expired. Please log in again.");
+            localStorage.removeItem('adminToken');
+            // Optionally redirect to login
+          } else {
+            toast.error(error.response.data.message || 'An error occurred while clearing commodities.');
+          }
+        } else if (error.request) {
+          toast.error('No response received from the server. Please try again later.');
+        } else {
+          toast.error('An unexpected error occurred.');
+        }
+      } finally {
+        setLoading(false);  // Stop the loading indicator
       }
     }
   };
+  
 
   // Handle Commodity name switch
   const switchCommidity = (e) => {
@@ -126,36 +175,84 @@ const Update = () => {
 
   // Handle Commodity delete
   const handleDelete = async (e) => {
-    if (confirm(`Are you sure you want to delete ${activeCommodity}`)) {
-      const activeCommodity = e.target.previousElementSibling.textContent;
-      console.log(activeCommodity);
-      const resp = await axios.post(`${serverUrl}/api/admin/delete-commodity`, {name: activeCommodity});
-
-      if (resp.data.success) {
-        await loadCommodities();
-        toast.success(resp.data.message);
-      } else {
-        toast.error(resp.data.message);
+    const activeCommodity = e.target.previousElementSibling.textContent;
+  
+    if (confirm(`Are you sure you want to delete ${activeCommodity}?`)) {
+      try {
+        const resp = await axios.post(`${serverUrl}/api/admin/delete-commodity`, 
+        { name: activeCommodity }, 
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+            'Accept': 'application/json',
+          },
+        });
+  
+        if (resp.data.success) {
+          await loadCommodities();  // Reload commodities after successful deletion
+          toast.success(resp.data.message);
+        } else {
+          toast.error(resp.data.message || `Failed to delete ${activeCommodity}.`);
+        }
+      } catch (error) {
+        console.error(`Error deleting ${activeCommodity}:`, error);
+        if (error.response) {
+          if (error.response.status === 403) {
+            toast.error("Your session has expired. Please log in again.");
+            localStorage.removeItem('adminToken');
+            // Optionally redirect to login
+          } else {
+            toast.error(error.response.data.message || `An error occurred while deleting ${activeCommodity}.`);
+          }
+        } else if (error.request) {
+          toast.error('No response received from the server. Please try again later.');
+        } else {
+          toast.error('An unexpected error occurred.');
+        }
       }
     }
   };
+  
 
   // Load commodities from db
   const loadCommodities = async () => {
     setLoading(true);
-
-    const resp = await axios.get(`${serverUrl}/api/commodity/fetch`);
-
-    if (resp.data.success && resp.data.commodities.length > 0) {
-      setCommodity_list(resp.data.commodities);
-      setActiveCommodity(resp.data.commodities[0]["name"]);
+  
+    try {
+      const resp = await axios.get(`${serverUrl}/api/commodity/fetch`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Accept': 'application/json',
+        },
+      });
+  
+      if (resp.data.success && resp.data.commodities.length > 0) {
+        setCommodity_list(resp.data.commodities);
+        setActiveCommodity(resp.data.commodities[0].name);
+      } else {
+        setCommodity_list([]);
+        toast.error(resp.data.message || 'No commodities found.');
+      }
+    } catch (error) {
+      console.error('Error fetching commodities:', error);
+      if (error.response) {
+        if (error.response.status === 403) {
+          toast.error("Your session has expired. Please log in again.");
+          localStorage.removeItem('adminToken');
+          // Optionally redirect to login
+        } else {
+          toast.error(error.response.data.message || 'An error occurred while fetching commodities.');
+        }
+      } else if (error.request) {
+        toast.error('No response received from the server. Please try again later.');
+      } else {
+        toast.error('An unexpected error occurred.');
+      }
+    } finally {
       setLoading(false);
-    } else {
-      setCommodity_list([]);
-      setLoading(false);
-      toast.error(resp.data.message);
     }
   };
+  
 
   // Add commodity Form values
   const [cForm, setCForm] = useState({
@@ -177,26 +274,50 @@ const Update = () => {
   const handleCSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const resp = await axios.post(`${serverUrl}/api/admin/upsert`, {
-      name: cForm.productName,
-      type: cForm.productType,
-    });
-    if (resp.data.success) {
-      await loadCommodities();
-      toast.success(resp.data.message);
-      setShowOverlay(false);
-      setCForm({
-        productName: "",
-        productType: "",
+  
+    try {
+      const resp = await axios.post(`${serverUrl}/api/admin/upsert`, {
+        name: cForm.productName,
+        type: cForm.productType,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`,
+          'Accept': 'application/json',
+        },
       });
-      setLoading(false);
-    } else {
-      toast.error(resp.data.message);
-      console.log(resp.message);
-      setLoading(false);
+  
+      if (resp.data.success) {
+        await loadCommodities();  // Reload commodities after a successful operation
+        toast.success(resp.data.message);
+        setShowOverlay(false);  // Close the overlay
+        setCForm({
+          productName: "",
+          productType: "",
+        });  // Reset the form fields
+      } else {
+        toast.error(resp.data.message || 'Failed to update commodity.');
+        console.error('API response error:', resp.data.message);
+      }
+    } catch (error) {
+      console.error('Error submitting commodity:', error);
+      if (error.response) {
+        if (error.response.status === 403) {
+          toast.error("Your session has expired. Please log in again.");
+          localStorage.removeItem('adminToken');
+          // Optionally redirect to login
+        } else {
+          toast.error(error.response.data.message || 'An error occurred while updating the commodity.');
+        }
+      } else if (error.request) {
+        toast.error('No response received from the server. Please try again later.');
+      } else {
+        toast.error('An unexpected error occurred.');
+      }
+    } finally {
+      setLoading(false);  // Stop the loading indicator
     }
   };
+  
 
   // Load admin board
   const loadAdminBoard = async () => {

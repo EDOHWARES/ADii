@@ -52,7 +52,6 @@ const login = async (req, res) => {
 };
 
 const dashboard = async (req, res) => {
-  console.log('in dashboard route')
   res.json({
     success: true,
     message: "dashboard",
