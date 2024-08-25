@@ -344,6 +344,14 @@ const Update = () => {
       }
     }
   };
+
+  // Logout Admin Board
+  const logout = () => {
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('adminToken');
+      window.location.reload();
+    };
+  };
   
   
 
@@ -413,7 +421,7 @@ const Update = () => {
               )}
             </div>
             <p>Product Update</p>
-            <MdCancelPresentation className="cursor-pointer text-2xl" />
+            <MdCancelPresentation onClick={logout} className="cursor-pointer text-2xl" />
           </div>
           {!commodity_list.length > 0 ? (
             <div>
