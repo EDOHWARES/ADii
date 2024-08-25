@@ -32,12 +32,12 @@ const Footer = () => {
   };
 
   return (
-    <div id='footer' className='bg-[#D6D6D6] px-4 md:px-10 py-4 w-full mt-[25rem]'>
+    <div id='footer' className='bg-[#D6D6D6] px-4 md:px-10 py-4 w-full mt-[15rem]'>
       <div className="logo"><img src={logo} alt="logo" className='w-[144px]'/></div>
 
       <div className='flex flex-col md:flex-row justify-between w-full gap-[3rem]'>
-        <div className=' w-full md:w-[35%] bg-[#CECECE] px6 md:px-8 py-4 md:py-6 shadow-md rounded-[5px] font-medium text-xl text-center md:text-start md:text-[24px] leading-[36px]'>
-            ADii is a major profit organization that collects National Data for improved economic activities
+        <div className=' w-full md:w-[35%] bg-[#CECECE] px6 md:px-8 py-4 md:py-6 shadow-md rounded-[5px] font-medium text-[18px] text-center md:text-start md:text-[24px] leading-[36px]'>
+            ADii is a non-profit organization that collects national data for improved economic activities.
         </div>
 
         <form onSubmit={(e) => handleSubmit(e)} className='w-full md:w-[65%] flex items-center justify-between'>
@@ -67,10 +67,10 @@ const Footer = () => {
       </div>
       
       <ul className='flex items-center justify-between text-sm md:text-[15px] font-semibold leading-[22.5px] text-[#313131] mt-[10rem] flex-wrap gap-[1rem]'>
-        <li>Copyright ADii 2024</li>
-        <li>Terms & Conditions</li>
-        <li>Privacy Policy</li>
-        <li>Help</li>
+        <li className='text-[13px]'>Copyright ADii 2024</li>
+        <li className='text-[13px]'>Terms & Conditions</li>
+        <li className='text-[13px]'>Privacy Policy</li>
+        <li className='text-[13px]'>Help</li>
       </ul>
     </div>
   )

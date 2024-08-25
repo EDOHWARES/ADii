@@ -22,7 +22,7 @@ const FoodItemPrice = ({ state, price, admin, value, name, onChange }) => {
           type="text"
           value={`₦ ${price}.00`}
           readOnly
-          className=" max-w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#c6c6c6] font-medium px-[1rem]"
+          className=" max-w-[187px] h-[48px] rounded-[6px] border border-[#828282] text-[12px] leading-[18px] text-[#c6c6c6] font-medium px-[.4rem]"
         />
       )}
     </div>
