@@ -29,13 +29,11 @@ const Commodity = () => {
     } else {
       setCommodity_list([]);
       setLoading(false);
-      console.log(resp.data.message);
     }
   };
 
   useEffect(() => {
     loadCommodities();
-    console.log(commodity_list);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

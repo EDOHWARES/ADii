@@ -6,14 +6,6 @@ const adminSchema = new mongoose.Schema({
     password: {type: String, required: true},
 });
 
-// // Hash the password before saving 
-// adminSchema.pre('save', async function(next) {
-//     if (this.isModified('password')) {
-//         this.password = await bcryptjs.hash(this.password, 10);
-//     };
-//     next();
-// });
-
 // Create the admin model
 const adminModel = mongoose.models.admin || mongoose.model('admin', adminSchema);
 
@@ -22,12 +14,12 @@ const setupAdmin = async () => {
     const existingAdmin = await adminModel.findOne({username: 'adii-superuser'});
     
     if (!existingAdmin) {
+        // eslint-disable-next-line no-undef
         const hashedPassword = await bcryptjs.hash(process.env.ADMIN_PASSWORD, 10);
         const theadmin = new adminModel({username: 'adii-superuser', password: hashedPassword});
-        const admin = await theadmin.save();
-        console.log('Admin credentials set up successfully',process.env.ADMIN_PASSWORD, admin);
+        await theadmin.save();
     } else {
-        console.log('Admin already set up');
+        return;
     };
 };
 

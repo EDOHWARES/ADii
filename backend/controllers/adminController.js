@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import adminModel from "../models/adminModel.js";
-import commodityModel from '../models/commodityModel.js';
-
+import commodityModel from "../models/commodityModel.js";
 
 // Login API
 const login = async (req, res) => {
@@ -31,6 +30,7 @@ const login = async (req, res) => {
     // Generate a JWT token
     const token = jwt.sign(
       { id: admin._id, username: admin.username },
+      // eslint-disable-next-line no-undef
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -42,7 +42,6 @@ const login = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
       message: "Server Error",
@@ -76,7 +75,6 @@ const deleteCommodity = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: "Server Error",
@@ -97,52 +95,49 @@ const clearAllCommodities = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     return res.json({
-        success: false,
-        message: 'Server Error',
-        error: error.message,
-    })
-  };
+      success: false,
+      message: "Server Error",
+      error: error.message,
+    });
+  }
 };
 
 const updateCommodity = async (req, res) => {
-  const {commodityName, updatedPrices} = req.body;
-  console.log(updatedPrices);
+  const { commodityName, updatedPrices } = req.body;
 
   try {
     // Find the commodity by ID
-    const commodity = await commodityModel.findOne({name: commodityName});
+    const commodity = await commodityModel.findOne({ name: commodityName });
 
     if (!commodity) {
       return res.status(404).json({
         success: false,
-        message: 'Commodity not found'
+        message: "Commodity not found",
       });
-    };
+    }
 
     // Update prices for all states
     const pricesObject = commodity.price[0];
 
     for (const state in updatedPrices) {
-      if (state in pricesObject && updatedPrices[state].length > 1 ) {
+      if (state in pricesObject && updatedPrices[state].length > 1) {
         pricesObject[state] = updatedPrices[state];
-      };
-    };
+      }
+    }
 
     // Save the updated commodity document
     await commodity.save();
 
     return res.json({
       success: true,
-      message: 'Prices updated successfully',
+      message: "Prices updated successfully",
       commodity,
-    })
+    });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       success: false,
-      message: 'Server Error',
+      message: "Server Error",
       error: error.message,
     });
   }
@@ -150,48 +145,52 @@ const updateCommodity = async (req, res) => {
 
 // Update or Insert Commodity
 const upsertCommodity = async (req, res) => {
-  const {name, type, price} = req.body;
+  const { name, type, price } = req.body;
 
   try {
-      // Find and update the commodity if it exists
-      let commodity = await commodityModel.findOneAndUpdate(
-          {name},
-          {$set: {type, price}},
-          {new: true, upsert: false}
-      );
+    // Find and update the commodity if it exists
+    let commodity = await commodityModel.findOneAndUpdate(
+      { name },
+      { $set: { type, price } },
+      { new: true, upsert: false }
+    );
 
-      //If commodity is found, update and save it
-      if (commodity) {
-          await commodity.save();
-          res.status(200).json({
-              success: true,
-              message: 'Successfully updated',
-              commodity,
-          });
-      } else {
-          const newCommodity = new commodityModel({
-              name,
-              type,
-              price,
-          });
-          await newCommodity.save();
-
-          res.status(201).json({
-              success: true,
-              message: 'Successfully Added',
-              newCommodity,
-          });
-      };
-  } catch (error) {
-      console.log(error)
-      res.status(500).json({
-          success: false,
-          message: 'Server error',
+    //If commodity is found, update and save it
+    if (commodity) {
+      await commodity.save();
+      res.status(200).json({
+        success: true,
+        message: "Successfully updated",
+        commodity,
       });
-  };
+    } else {
+      const newCommodity = new commodityModel({
+        name,
+        type,
+        price,
+      });
+      await newCommodity.save();
+
+      res.status(201).json({
+        success: true,
+        message: "Successfully Added",
+        newCommodity,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
 };
 
-
-
-
-export { login, dashboard, clearAllCommodities, deleteCommodity, updateCommodity, upsertCommodity };
+export {
+  login,
+  dashboard,
+  clearAllCommodities,
+  deleteCommodity,
+  updateCommodity,
+  upsertCommodity,
+};

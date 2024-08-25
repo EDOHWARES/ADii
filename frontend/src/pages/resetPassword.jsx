@@ -33,8 +33,6 @@ const ResetPassword = () => {
         return setMessage('Password cannot be less than 8 digits!');
     };
 
-    console.log(email, password, token);
-
     const resp = await axios.post(`${serverUrl}/api/user/reset-password/${token}`, {
       email: email,
       password: password,

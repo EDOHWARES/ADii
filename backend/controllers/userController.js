@@ -9,6 +9,7 @@ dotenv.config();
 
 // create token
 const createToken = (id) => {
+  // eslint-disable-next-line no-undef
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
@@ -66,7 +67,6 @@ const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: "Server Error",
@@ -105,7 +105,6 @@ const loginUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: "Server Error",
@@ -148,6 +147,7 @@ const forgotPassword = async (req, res) => {
     await user.save({ validateBeforeSave: false });
 
     // Create the reset URL
+    // eslint-disable-next-line no-undef
     const resetURL = `${process.env.FRONTEND_URL}/auth/reset-password?token=${resetToken}`;
 
     // Set up nodemailer
@@ -251,7 +251,6 @@ const forgotPassword = async (req, res) => {
       message: "Password reset link sent to your email",
     });
   } catch (error) {
-    console.log(error);
     res.json({
       success: false,
       message: "Server Error",
@@ -302,7 +301,6 @@ const resetPassword = async (req, res) => {
             message: 'Password Has Been Reset, Go Back And Login!',
         });
     } catch (error) {
-        console.log(error);
         res.json({
             success: false,
             message: 'Server Error',

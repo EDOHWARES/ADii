@@ -32,7 +32,6 @@ const AdminAuth = () => {
     setLoading(true);
 
     const resp = await axios.post(`${serverUrl}/api/admin/login`, {username: form.email, password: form.secretKey});
-    console.log(resp)
 
     if (resp.data.success) {
         localStorage.setItem('adminToken', resp.data.token);

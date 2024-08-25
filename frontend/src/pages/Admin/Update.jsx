@@ -108,7 +108,6 @@ const Update = () => {
         toast.error(resp.data.message || 'Failed to update commodity prices.');
       }
     } catch (error) {
-      console.error('Error updating commodity prices:', error);
       if (error.response) {
         if (error.response.status === 403) {
           toast.error("Your session has expired. Please log in again.");
@@ -147,7 +146,6 @@ const Update = () => {
           toast.error(resp.data.message || 'Failed to clear commodities.');
         }
       } catch (error) {
-        console.error('Error clearing commodities:', error);
         if (error.response) {
           if (error.response.status === 403) {
             toast.error("Your session has expired. Please log in again.");
@@ -195,7 +193,6 @@ const Update = () => {
           toast.error(resp.data.message || `Failed to delete ${activeCommodity}.`);
         }
       } catch (error) {
-        console.error(`Error deleting ${activeCommodity}:`, error);
         if (error.response) {
           if (error.response.status === 403) {
             toast.error("Your session has expired. Please log in again.");
@@ -234,7 +231,6 @@ const Update = () => {
         toast.error(resp.data.message || 'No commodities found.');
       }
     } catch (error) {
-      console.error('Error fetching commodities:', error);
       if (error.response) {
         if (error.response.status === 403) {
           toast.error("Your session has expired. Please log in again.");
@@ -296,10 +292,8 @@ const Update = () => {
         });  // Reset the form fields
       } else {
         toast.error(resp.data.message || 'Failed to update commodity.');
-        console.error('API response error:', resp.data.message);
       }
     } catch (error) {
-      console.error('Error submitting commodity:', error);
       if (error.response) {
         if (error.response.status === 403) {
           toast.error("Your session has expired. Please log in again.");

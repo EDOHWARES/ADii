@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import petroleumImg from '../../assets/images/petroleum.png';
 import foodsImg from '../../assets/images/foods.png'
 import rainfallImg from '../../assets/images/rainfall.png';

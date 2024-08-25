@@ -10,6 +10,7 @@ const authMiddleware = (req, res, next) => {
         });
     }
 
+    // eslint-disable-next-line no-undef
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
