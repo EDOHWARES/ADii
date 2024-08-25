@@ -11,7 +11,7 @@ export default [
     languageOptions: {
       ecmaVersion: 2020,
       globals: { 
-        process: 'readonly', // Add process as a global
+        ...globals.node,
         ...globals.browser 
       },
       parserOptions: {
