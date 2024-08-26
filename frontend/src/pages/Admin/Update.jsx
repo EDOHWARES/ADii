@@ -507,7 +507,7 @@ const Update = () => {
           {showOverlay && (
             <form
               onSubmit={handleCSubmit}
-              className="overlay p-4 fixed w-[40rem] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[20rem] m-auto flex flex-wrap gap-[2rem] items-center justify-center bg-[#000000cc]"
+              className="overlay p-4 fixed w-[80%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[20rem] m-auto flex flex-wrap gap-[2rem] items-center justify-center bg-[#000000cc]"
             >
               <div
                 onClick={() => setShowOverlay(false)}
@@ -551,7 +551,7 @@ const Update = () => {
               <div className="w-full flex items-center justify-center">
                 <button
                   type="submit"
-                  className={`w-[30%] bg-[#006630] h-[60px] px-6 py-4 text-white rounded-r-[4px] text-sm md:text-[15px] font-medium hover:bg-[#01401f] focus:outline focus:outline-green-500 duration-500 flex items-center justify-center ${
+                  className={`w-fit bg-[#006630] h-[60px] px-6 py-4 text-white rounded-r-[4px] text-sm md:text-[15px] font-medium hover:bg-[#01401f] focus:outline focus:outline-green-500 duration-500 flex items-center justify-center ${
                     loading ? "bg-[#276100ce]" : ""
                   }`}
                 >
