@@ -20,7 +20,7 @@ const Header = () => {
   }
 
   return (
-    <div className='absolute top-0 right-0 left-0 '>
+    <div className='absolute top-0 right-0 left-0 max-w-[1600px] mx-auto'>
       <div className="content flex items-center justify-between pl-[-1rem] md:pl-0 pr-4 md:pr-10 relative md:h-[8rem]">
         <Link to={'/'} className="logo md:w-[20%] cursor-pointer">
             <img src={logo} alt="logo" 

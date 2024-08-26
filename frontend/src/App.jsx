@@ -38,7 +38,7 @@ function App() {
         />
         </div>
         :
-        <section className='max-w-[1440px] mx-auto'>
+        <section className='max-w-[1600px] mx-auto border-x'>
         <ToastContainer />
         <BrowserRouter>
           <Routes>

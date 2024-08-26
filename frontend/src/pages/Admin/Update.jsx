@@ -392,7 +392,7 @@ const Update = () => {
           <p>Wait! while we process your request</p>
         </div>
       ) : (
-        <div className="md:flex flex-col gap-[4rem] px-[1rem] md:px-0 py-6 max-w-[1165px] mx-auto">
+        <div className="md:flex flex-col gap-[4rem] px-[1rem] md:px-[3rem] py-6 w-full mx-auto">
           <div className="w-full flex items-center justify-between font-semibold text-[16px] text-[#393939]">
             <div
               onClick={() => setShowNav((prev) => !prev)}
