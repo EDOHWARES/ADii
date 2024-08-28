@@ -16,7 +16,7 @@ import Hero from './components/Hero/Hero';
 import Footer from './components/Footer/Footer';
 
 function App() {
-  const excludedRoutes = ['/auth', '/admin/auth', '/admin/dashboard', '/auth/reset-password'];
+  const excludedRoutes = ['/auth', '/admin/auth', '/admin/dashboard', '/auth/reset-password', '*'];
   const [loading, setLoading] = useState(false);
   const location = useLocation(); // Use useLocation hook
 
