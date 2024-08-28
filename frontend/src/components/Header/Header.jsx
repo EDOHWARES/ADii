@@ -31,6 +31,7 @@ const Header = () => {
             <ul className={`flex flex-col ${!showMobileNav ? 'hidden' : ''} md:flex md:flex-row items-center space-y-4 md:space-y-0 mt-10 md:mt-0 bg-white shadow-md md:shadow-[0] md:bg-transparent md:space-x-4 justify-between w-[50%] h-[35vh] md:w-full absolute md:static top-0 right-0 py-6 md:py-0`}>
                 <a onClick={() => handleNavClick('/')} href={'/'} className={`${activeNav == '/' ? 'active-nav' : ''} cursor-pointer md:text-sm text-[13px]`}>Home</a>
                 <a onClick={() => handleNavClick('#market')} href={'#market'} className={`${activeNav == '#market' ? 'active-nav' : ''} cursor-pointer md:text-sm text-[13px]`}>Markets</a>
+                <Link to={'/about'} className={`${activeNav == '#market' ? 'active-nav' : ''} cursor-pointer md:text-sm text-[13px]`}>About Us</Link>
                 <a onClick={() => handleNavClick('#footer')} href={'#footer'} className={`${activeNav == '#footer' ? 'active-nav' : ''} cursor-pointer md:text-sm text-[13px]`}>Contact Us</a>
                 <a onClick={() => handleNavClick('#newletter')} href={'#newsletter'}>
                     <button className='border md:text-sm text-[13px] border-[#276100] text-[#276100] hover:bg-[#276100] hover:text-white duration-500 px-4 md:px-6 py-2 md:py-4 rounded-[9px]'>Join Newsletter</button>
