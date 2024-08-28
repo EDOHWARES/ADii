@@ -24,12 +24,12 @@ const Header = () => {
             />
         </Link>
         <nav className='md:w-[80%] w-full absolute md:static right-0'>
-            <ul className={`flex flex-col ${!showMobileNav ? 'hidden' : ''} md:flex md:flex-row items-center space-y-4 md:space-y-0 mt-10 md:mt-0 bg-white shadow-md md:shadow-[0] md:bg-transparent md:space-x-4 justify-between w-[50%] h-[35vh] md:w-full absolute md:static top-0 right-0 py-6 md:py-0`}>
-                <a href={'/'} className={`cursor-pointer md:text-sm text-[13px]`}>Home</a>
-                <a href={'#market'} className={`cursor-pointer md:text-sm text-[13px]`}>Markets</a>
-                <Link to={'/about'} className={`cursor-pointer md:text-sm text-[13px]`}>About Us</Link>
-                <a href={'#footer'} className={`cursor-pointer md:text-sm text-[13px]`}>Contact Us</a>
-                <a href={'#footer'}>
+            <ul className={`flex flex-col ${!showMobileNav ? 'hidden' : ''} md:flex md:flex-row items-center space-y-4 md:space-y-0 mt-10 md:mt-0 bg-white shadow-md md:shadow-[0] md:bg-transparent md:space-x-4 justify-between w-full h-fit md:w-full absolute md:static top-0 right-0 py-6 md:py-0`}>
+                <a onClick={() => setShowMobileNav(false)} href={'/'} className={`cursor-pointer md:text-sm text-[13px]`}>Home</a>
+                <a onClick={() => setShowMobileNav(false)} href={'#market'} className={`cursor-pointer md:text-sm text-[13px]`}>Markets</a>
+                <Link onClick={() => setShowMobileNav(false)} to={'/about'} className={`cursor-pointer md:text-sm text-[13px]`}>About Us</Link>
+                <a onClick={() => setShowMobileNav(false)} href={'#footer'} className={`cursor-pointer md:text-sm text-[13px]`}>Contact Us</a>
+                <a onClick={() => setShowMobileNav(false)} href={'#footer'}>
                     <button className='border md:text-sm text-[13px] border-[#276100] text-[#276100] hover:bg-[#276100] hover:text-white duration-500 px-4 md:px-6 py-2 md:py-4 rounded-[9px]'>Join Newsletter</button>
                 </a>
                 <li>
