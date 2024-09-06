@@ -4,17 +4,24 @@ import expertise from '../assets/images/expertise.png'
 import Newletter from '../components/Newsletter/Newsletter';
 
 const About = () => {
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/auth')
+    }
+  }, [token, navigate]);
+
   return (
     <div className='px-4 md:px-10'>
       <div className="flex flex-col items-center space-y-[1rem] mb-[4rem]">
         <h1 className="text-[40px] leading-[60px] font-semibold text-[#353535]">About Adii</h1>
-        <p className="font-medium text-[20px] leading-[30px] text-center text-[#686868] text-sm">
+        <p className="font-medium text-[20px] leading-[30px] text-center text-[#686868] text-sm max-w-[20rem]">
             Welcome to Adii, we are a leading provider of real-tim price update for food commodities, empowering businesses and individuals to make informed decision in the ever-changing agricultural market.
         </p>
       </div>
       <div className='flex flex-col gap-[3rem]'>
 
-        <div className='w-full flex flex-col sm:flex-row items-center sm:items-start justify-between mx-auto gap-[2rem] md:gap-[4rem] shadow-2xl p-2 sm:p-8'>
+        <div className='w-full flex flex-col md:items-center sm:flex-row items-center sm:items-start justify-between mx-auto gap-[2rem] md:gap-[4rem] shadow-2xl p-2 sm:p-8'>
             <div className='flex flex-col w-full max-w-[485px]'>
                 <h2 className='font-semibold text-[30px] md:text-[40px] leading-[60px] text-[#222227]'>Our Mission</h2>
                 <p className='text-sm text-[#222227] font-medium'>
@@ -26,7 +33,7 @@ const About = () => {
             </div>
         </div>
 
-        <div className='w-full flex flex-col sm:flex-row-reverse items-center sm:items-start justify-between mx-auto gap-[2rem] md:gap-[4rem] shadow-2xl p-2 sm:p-8'>
+        <div className='w-full flex flex-col md:items-center sm:flex-row-reverse items-center sm:items-start justify-between mx-auto gap-[2rem] md:gap-[4rem] shadow-2xl p-2 sm:p-8'>
             <div className='flex flex-col w-full max-w-[485px]'>
                 <h2 className='font-semibold text-[30px] md:text-[40px] leading-[60px] text-[#222227]'>Our Vison</h2>
                 <p className='text-sm text-[#222227] font-medium'>
@@ -38,7 +45,7 @@ const About = () => {
             </div>
         </div>
 
-        <div className='w-full flex flex-col sm:flex-row items-center sm:items-start justify-between mx-auto gap-[2rem] md:gap-[4rem] shadow-2xl p-2 sm:p-8'>
+        <div className='w-full flex flex-col md:items-center sm:flex-row items-center sm:items-start justify-between mx-auto gap-[2rem] md:gap-[4rem] shadow-2xl p-2 sm:p-8'>
             <div className='flex flex-col w-full max-w-[485px]'>
                 <h2 className='font-semibold text-[30px] md:text-[40px] leading-[60px] text-[#222227]'>Our Expertise</h2>
                 <p className='text-sm text-[#222227] font-medium'>
