@@ -2,6 +2,7 @@ import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Auth from './pages/Auth';
 import Home from './pages/Home';
+import FarmersList from './pages/FarmersList/FarmersList';
 import AdminAuth from './pages/Admin/AdminAuth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -53,6 +54,7 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
+              <Route path='/farmers-list' element={<FarmersList/>} />
               <Route path='/auth' element={<Auth />} />
               <Route path='/admin/auth' element={<AdminAuth />} />
               <Route path='/admin/dashboard' element={<Update />} />

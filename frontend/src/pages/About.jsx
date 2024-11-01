@@ -1,9 +1,15 @@
+import { useContext, useEffect } from 'react';
+
 import mission from '../assets/images/mission.png';
 import vison from '../assets/images/vision.png';
 import expertise from '../assets/images/expertise.png'
 import Newletter from '../components/Newsletter/Newsletter';
+import { AppContext } from '../context/StoreContext';
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  const navigate = useNavigate();
+  const {token} = useContext(AppContext);
 
   useEffect(() => {
     if (!token) {
@@ -15,7 +21,7 @@ const About = () => {
     <div className='px-4 md:px-10'>
       <div className="flex flex-col items-center space-y-[1rem] mb-[4rem]">
         <h1 className="text-[40px] leading-[60px] font-semibold text-[#353535]">About Adii</h1>
-        <p className="font-medium text-[20px] leading-[30px] text-center text-[#686868] text-sm max-w-[20rem]">
+        <p className="font-medium text-[20px] leading-[30px] text-center text-[#686868] text-sm">
             Welcome to Adii, we are a leading provider of real-tim price update for food commodities, empowering businesses and individuals to make informed decision in the ever-changing agricultural market.
         </p>
       </div>

@@ -224,4 +224,128 @@ export const commodity_list = [
             }
         ]
     }
-]
+];
+
+export const farmersData = [
+    {
+        id: 1,
+        location: 'Edo State',
+        farmerName: 'Adewale Ayuba',
+        crop: 'Maize',
+        contact: "+2348109654073",
+        farmName: 'Gracious Farm',
+    },
+    {
+        id: 2,
+        location: 'Oyo State',
+        farmerName: 'Bisi Adebayo',
+        crop: 'Cassava',
+        contact: "+2348123456789",
+        farmName: 'Harvest Fields',
+    },
+    {
+        id: 3,
+        location: 'Kaduna State',
+        farmerName: 'Yusuf Bello',
+        crop: 'Rice',
+        contact: "+2348134567890",
+        farmName: 'Green Valley Farm',
+    },
+    {
+        id: 4,
+        location: 'Niger State',
+        farmerName: 'Musa Ibrahim',
+        crop: 'Millet',
+        contact: "+2348145678901",
+        farmName: 'Sunny Plains',
+    },
+    {
+        id: 5,
+        location: 'Kano State',
+        farmerName: 'Fatima Sani',
+        crop: 'Groundnut',
+        contact: "+2348156789012",
+        farmName: 'Golden Acres',
+    },
+    {
+        id: 6,
+        location: 'Osun State',
+        farmerName: 'Folake Olumide',
+        crop: 'Yam',
+        contact: "+2348167890123",
+        farmName: 'Elysian Farmstead',
+    },
+    {
+        id: 7,
+        location: 'Benue State',
+        farmerName: 'Gabriel Uche',
+        crop: 'Soybean',
+        contact: "+2348178901234",
+        farmName: 'Evergreen Plantation',
+    },
+    {
+        id: 8,
+        location: 'Enugu State',
+        farmerName: 'Amaka Chukwu',
+        crop: 'Palm Oil',
+        contact: "+2348189012345",
+        farmName: 'Sunshine Farms',
+    },
+    {
+        id: 9,
+        location: 'Rivers State',
+        farmerName: 'Dike Amadi',
+        crop: 'Cassava',
+        contact: "+2348190123456",
+        farmName: 'Riverside Agrarian',
+    },
+    {
+        id: 10,
+        location: 'Plateau State',
+        farmerName: 'Angela Musa',
+        crop: 'Tomato',
+        contact: "+2348101234567",
+        farmName: 'Peak Produce',
+    },
+    {
+        id: 11,
+        location: 'Ekiti State',
+        farmerName: 'Kunle Akinwale',
+        crop: 'Cocoa',
+        contact: "+2348112345678",
+        farmName: 'Sunset Plantation',
+    },
+    {
+        id: 12,
+        location: 'Akwa Ibom State',
+        farmerName: 'Uduak Etim',
+        crop: 'Plantain',
+        contact: "+2348123456789",
+        farmName: 'Tropical Green',
+    },
+    {
+        id: 13,
+        location: 'Cross River State',
+        farmerName: 'Esther Eyo',
+        crop: 'Pineapple',
+        contact: "+2348134567890",
+        farmName: 'Fruitful Gardens',
+    },
+    {
+        id: 14,
+        location: 'Abia State',
+        farmerName: 'Chidi Okoro',
+        crop: 'Cassava',
+        contact: "+2348145678901",
+        farmName: 'Roots & Shoots',
+    },
+    {
+        id: 15,
+        location: 'Kogi State',
+        farmerName: 'Idris Abu',
+        crop: 'Yam',
+        contact: "+2348156789012",
+        farmName: 'Bountiful Harvest',
+    }
+];
+

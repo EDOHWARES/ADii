@@ -8,7 +8,7 @@ const AppContextProvider = ({children}) => {
     const [token, setToken] = useState('');
     const [signedUp, setSignedUp] = useState(true);
     const serverUrl = import.meta.env.VITE_API_URL;
-    const [themarket, setMarket] = useState('foods');
+    const [themarket, setMarket] = useState('');
     const foodMapping = {
         maize: 0,
         melon: 1,
@@ -20,6 +20,14 @@ const AppContextProvider = ({children}) => {
         garri: 7,
         beans: 8,
     };
+
+    const heroTextMapping = {
+        home: ['Agroconomy', 'ADii is a non-profit organization that collects National Data for improved economic activities'],
+        foods: ['Food Community', 'News, Prices and analysis on vital part of the agriculture market'],
+        petroleum: ['Petroleum', 'Get a true global view of the risk and opportunities ahead for the petroleum market'],
+        rainfall: ['Rainfall', 'Get real-time data on rainfall specifics'],
+        farmers: ['Farmers', 'Get real time information regarding crops and the farms in each state in nigeria']
+    }
 
     const switchMarket = (themarket) => {
         setMarket(themarket);
@@ -41,6 +49,7 @@ const AppContextProvider = ({children}) => {
         themarket,
         foodMapping,
         switchMarket,
+        heroTextMapping,
     };
 
     return (

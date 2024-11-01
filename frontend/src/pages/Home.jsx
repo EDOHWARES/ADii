@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div>
       <FindMarket />
-      {themarket == 'foods' ? <Commodity /> : themarket == 'petroleum' ? <Petroleum /> :  <Rainfall /> }
+      {themarket == 'foods' ? <Commodity /> : themarket == 'petroleum' ? <Petroleum /> : themarket == 'rainfall' ?  <Rainfall /> : '' }
     </div>
   )
 }
