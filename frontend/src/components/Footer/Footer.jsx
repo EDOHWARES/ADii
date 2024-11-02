@@ -32,7 +32,7 @@ const Footer = () => {
   };
 
   return (
-    <div id='footer' className='bg-[#D6D6D6] px-4 md:px-10 py-4 w-full mt-[15rem]'>
+    <div id='footer' className='bg-[#D6D6D6] px-4 md:px-10 py-4 w-full mt-[8rem]'>
       <div className="logo"><img src={logo} alt="logo" className='w-[144px]'/></div>
 
       <div className='flex flex-col md:flex-row justify-between w-full gap-[3rem]'>

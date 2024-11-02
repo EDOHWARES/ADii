@@ -86,7 +86,7 @@ const Commodity = () => {
                 );
               })}
             </div>
-            <div className="right w-[80%] grid grid-cols-2 md:grid-cols-3 gap-[1rem] md:gap-[2rem] py-[1rem]">
+            <div className="right w-[80%] h-[25rem] overflow-y-scroll grid grid-cols-2 md:grid-cols-3 gap-[1rem] md:gap-[2rem] py-[1rem]">
               {commodity_list.map((commodity) => {
                 if (commodity.name == activeCommodity) {
                   return Object.entries(commodity.price[0]).map(
