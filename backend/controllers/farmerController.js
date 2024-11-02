@@ -41,7 +41,28 @@ const getAllFarmers = async (req, res) => {
 
 // Get a single farmer by ID
 const getFarmerById = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const farmer = await farmerModel.findById(id);
 
+        if (!farmer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Farmer not found'
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            farmer
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching farmer',
+            error: error.message
+        })
+    }
 };
 
 // Update a farmer by ID
