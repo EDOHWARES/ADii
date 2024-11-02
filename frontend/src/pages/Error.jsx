@@ -1,10 +1,24 @@
-import { Link } from 'react-router-dom';
-import errorImg from '../assets/images/error.png';
+import { useNavigate } from "react-router-dom";
 
 const Error = () => {
+
+  const navigate = useNavigate();
+
   return (
-    <div style={{backgroundImage: `url(${errorImg})`}} className='w-full relative bg-no-repeat bg-center bg-cover h-screen flex items-center justify-center'>
-        <Link to={'/'} className='absolute bottom-[4rem] right-[4rem] bg-red-600 font-bold text-xl text-white px-6 py-2 hover:scale-95 duration-500'>Go Back!</Link>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="text-center p-8 bg-white rounded-lg shadow-lg max-w-md">
+        <h1 className="text-6xl font-bold text-[#276100] mb-4">404</h1>
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">Page Not Found</h2>
+        <p className="text-gray-600 mb-6">
+          Sorry, the page you are looking for doesn't exist or has been moved.
+        </p>
+        <button
+          onClick={() => navigate('/')}
+          className="bg-[#276100] text-white px-6 py-2 rounded-lg hover:bg-green-950 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50 transition duration-200"
+        >
+          Go Back Home
+        </button>
+      </div>
     </div>
   )
 }

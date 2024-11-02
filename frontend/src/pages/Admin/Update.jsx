@@ -411,11 +411,12 @@ const Update = () => {
                   >
                     Home Page
                   </Link>
+                  
                   <Link
-                    onClick={clearCommodities}
-                    className="border-2 w-full p-2 cursor-pointer bg-red-300 text-white duration-300"
+                    to={'/admin/dashboard/farmersdata'}
+                    className="border-2 w-full p-2 cursor-pointer duration-300"
                   >
-                    Clear All Commodity
+                    Farmers Data
                   </Link>
                 </div>
               )}
@@ -423,6 +424,7 @@ const Update = () => {
             <p>Product Update</p>
             <MdCancelPresentation onClick={logout} className="cursor-pointer text-2xl" />
           </div>
+          {/* <button onClick={clearCommodities} className="bg-red-500 w-fit float-end text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none transition duration-200  focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">Clear all products</button> */}
           {!commodity_list.length > 0 ? (
             <div>
               <p>No available commodity, pls add!</p>
