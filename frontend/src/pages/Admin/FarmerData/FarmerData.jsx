@@ -36,6 +36,15 @@ const FarmerData = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    const resp = await axios.delete(`${serverUrl}/api/farmer/${id}/`);
+    if (resp.data.success) {
+      toast.success(resp.data.message);
+      setFarmers((prev) => prev.filter((farmer) => farmer._id !== id));
+    } else {
+      toast.success(resp.data.message);
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -235,7 +244,7 @@ const FarmerData = () => {
                           Edit
                         </button>
                         <button
-                          // onClick={() => handleDelete(farmer._id)}
+                          onClick={() => handleDelete(farmer._id)}
                           className="px-2 py-1 bg-red-500 text-white rounded"
                         >
                           Delete
