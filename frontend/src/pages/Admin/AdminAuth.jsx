@@ -36,7 +36,7 @@ const AdminAuth = () => {
     if (resp.data.success) {
         localStorage.setItem('adminToken', resp.data.token);
         setLoading(false);
-        navigate('/admin/dashboard');
+        navigate('/admin/products');
     } else {
         setLoading(false);
         toast.error(resp.data.message);

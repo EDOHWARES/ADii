@@ -1,12 +1,71 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RotatingLines, MutatingDots } from "react-loader-spinner";
 import { MdCancelPresentation } from "react-icons/md";
 import { MdMenu } from "react-icons/md";
+import { AppContext } from "../../../context/StoreContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const FarmerData = () => {
+  const {serverUrl} = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   const [showNav, setShowNav] = useState(false);
+
+  const [farmers, setFarmers] = useState([]);
+  const [editingFarmer, setEditingFarmer] = useState(null);
+  const [formData, setFormData] = useState({
+    location: "",
+    farmerName: "",
+    crop: "",
+    contact: "",
+    farmName: "",
+  });
+
+  // Fetch initial data
+  useEffect(() => {
+    async function fetchData() {
+      const resp = await axios.get(`${serverUrl}/api/farmer/`);
+      if (resp.data.success) {
+        setFarmers(resp.data.farmers)
+        toast.success('Farm data fetched')
+      } else {
+        toast.error(resp.data.message)
+      };
+    }
+    fetchData();
+  }, []);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (editingFarmer) {
+      const updatedFarmer = await updateFarmer(editingFarmer._id, formData);
+      setFarmers((prev) =>
+        prev.map((farmer) =>
+          farmer._id === updatedFarmer._id ? updatedFarmer : farmer
+        )
+      );
+    } else {
+      const resp = await axios.post(`${serverUrl}/api/farmer/`, {
+        farmerName: formData.farmerName,
+        location: formData.location,
+        crop: formData.crop,
+        contact: formData.contact,
+        farmName: formData.farmName,
+      });
+      setFarmers((prev) => [...prev, resp.data.farmer]);
+      
+    }
+    setFormData({
+      location: "",
+      farmerName: "",
+      crop: "",
+      contact: "",
+      farmName: "",
+    });
+    setEditingFarmer(null);
+  };
 
   // Logout Admin Board
   const logout = () => {
@@ -17,7 +76,7 @@ const FarmerData = () => {
   };
 
   return (
-    <>
+    <section className="w-full">
       {loading ? (
         <div className="fixed h-screen flex flex-col gap-[1.5rem] items-center justify-center w-full mx-auto">
           <MutatingDots
@@ -76,9 +135,121 @@ const FarmerData = () => {
               className="cursor-pointer text-2xl"
             />
           </div>
+
+          <div className="mt-10 w-full">
+            <form
+              onSubmit={handleSubmit}
+              className="mb-6 p-4 bg-gray-100 rounded shadow w-full"
+            >
+              <h3 className="text-xl font-semibold mb-4">
+                {editingFarmer ? "Edit Farmer" : "Add Farmer"}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Location"
+                  value={formData.location}
+                  onChange={(e) =>
+                    setFormData({ ...formData, location: e.target.value })
+                  }
+                  className="p-2 border border-gray-300 rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Farmer Name"
+                  value={formData.farmerName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, farmerName: e.target.value })
+                  }
+                  className="p-2 border border-gray-300 rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Crops"
+                  value={formData.crop}
+                  onChange={(e) =>
+                    setFormData({ ...formData, crop: e.target.value })
+                  }
+                  className="p-2 border border-gray-300 rounded"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Contact"
+                  value={formData.contact}
+                  onChange={(e) =>
+                    setFormData({ ...formData, contact: e.target.value })
+                  }
+                  className="p-2 border border-gray-300 rounded"
+                />
+                <input
+                  type="text"
+                  placeholder="Farm Name"
+                  value={formData.farmName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, farmName: e.target.value })
+                  }
+                  className="p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <button
+                type="submit"
+                className="mt-4 px-4 py-2 bg-green-500 text-white rounded"
+              >
+                {editingFarmer ? "Update Farmer" : "Add Farmer"}
+              </button>
+            </form>
+
+            <div className="w-full overflow-x-scroll">
+              <table className="min-w-full bg-white border border-gray-200 overflow-x-scroll">
+                <thead>
+                <tr className="w-full text-[10px] md:text-[14px] text-[#535765] bg-gray-100 ">
+                <th className="p-3 border-b">No</th>
+                    <th className="p-3 border-b">Location</th>
+                    <th className="p-3 border-b">Farmer Name</th>
+                    <th className="p-3 border-b">Crops</th>
+                    <th className="p-3 border-b">Contact</th>
+                    <th className="p-3 border-b">Farm Name</th>
+                    <th className="p-3 border-b">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {farmers.map((farmer, index) => (
+                    <tr
+                      key={farmer._id}
+                      className="text-[#40434E] text-[10px] md:text-[16px] text-center hover:bg-gray-100 duration-500"
+                      >
+                      <td className="p-3 border-b text-center">{index + 1}</td>
+                      <td className="p-3 border-b">{farmer.location}</td>
+                      <td className="p-3 border-b">{farmer.farmerName}</td>
+                      <td className="p-3 border-b">{farmer.crop}</td>
+                      <td className="p-3 border-b">{farmer.contact}</td>
+                      <td className="p-3 border-b">{farmer.farmName}</td>
+                      <td className="p-3 border-b flex space-x-2">
+                        <button
+                          // onClick={() => handleEdit(farmer)}
+                          className="px-2 py-1 bg-blue-500 text-white rounded"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          // onClick={() => handleDelete(farmer._id)}
+                          className="px-2 py-1 bg-red-500 text-white rounded"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       )}
-    </>
+    </section>
   );
 };
 
