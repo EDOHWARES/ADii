@@ -36,6 +36,11 @@ const FarmerData = () => {
     fetchData();
   }, []);
 
+  const handleEdit = async (farmer) => {
+    setEditingFarmer(farmer);
+    setFormData(farmer);
+  };
+
   const handleDelete = async (id) => {
     const resp = await axios.delete(`${serverUrl}/api/farmer/${id}/`);
     if (resp.data.success) {
@@ -44,12 +49,20 @@ const FarmerData = () => {
     } else {
       toast.success(resp.data.message);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (editingFarmer) {
-      const updatedFarmer = await updateFarmer(editingFarmer._id, formData);
+      // const updatedFarmer = await updateFarmer(editingFarmer._id, formData);
+      let updatedFarmer = await axios.put(`${serverUrl}/api/farmer/${formData._id}`, {
+        farmerName: formData.farmerName,
+        location: formData.location,
+        crop: formData.crop,
+        contact: formData.contact,
+        farmName: formData.farmName
+      })
+      updatedFarmer = updatedFarmer.data.farmer;
       setFarmers((prev) =>
         prev.map((farmer) =>
           farmer._id === updatedFarmer._id ? updatedFarmer : farmer
@@ -238,7 +251,7 @@ const FarmerData = () => {
                       <td className="p-3 border-b">{farmer.farmName}</td>
                       <td className="p-3 border-b flex space-x-2">
                         <button
-                          // onClick={() => handleEdit(farmer)}
+                          onClick={() => handleEdit(farmer)}
                           className="px-2 py-1 bg-blue-500 text-white rounded"
                         >
                           Edit
