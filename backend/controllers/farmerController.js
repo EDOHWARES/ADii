@@ -1,0 +1,46 @@
+import farmerModel from "../models/farmerModel.js";
+
+// Create new farmer
+const createFarmer = async (req, res) => {
+    try {
+        const {farmerName, location, crop, contact, farmName} = req.body;
+
+        const farmer = new farmerModel({farmerName, location, crop, contact, farmName});
+        await farmer.save();
+
+        res.status(201).json({
+            success: true,
+            message: 'Farmer created successfully',
+            farmer
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error creating farmer',
+            error: error.message,
+        })
+    }
+};
+
+// Get all farmers
+const getAllFarmers = async (req, res) => {
+
+};
+
+// Get a single farmer by ID
+const getFarmerById = async (req, res) => {
+
+};
+
+// Update a farmer by ID
+const updateFarmerById = async (req, res) => {
+
+};
+
+// Delete a farmer by ID
+const deleteAFarmer = async (req, res) => {
+
+};
+
+export {createFarmer, getAllFarmers, getFarmerById, updateFarmerById, deleteAFarmer};
+

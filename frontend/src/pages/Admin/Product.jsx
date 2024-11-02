@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { RotatingLines, MutatingDots } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 
-const Update = () => {
+const Product = () => {
 
   const { serverUrl } = useContext(AppContext);
   const [commodity_list, setCommodity_list] = useState([]);
@@ -411,9 +411,16 @@ const Update = () => {
                   >
                     Home Page
                   </Link>
+
+                  <Link
+                    to={'/admin/products'}
+                    className="border-2 w-full p-2 cursor-pointer duration-300"
+                  >
+                    Products Update
+                  </Link>
                   
                   <Link
-                    to={'/admin/dashboard/farmersdata'}
+                    to={'/admin/farmers-data'}
                     className="border-2 w-full p-2 cursor-pointer duration-300"
                   >
                     Farmers Data
@@ -421,7 +428,7 @@ const Update = () => {
                 </div>
               )}
             </div>
-            <p>Product Update</p>
+            <p>Products Update</p>
             <MdCancelPresentation onClick={logout} className="cursor-pointer text-2xl" />
           </div>
           {/* <button onClick={clearCommodities} className="bg-red-500 w-fit float-end text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none transition duration-200  focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">Clear all products</button> */}
@@ -588,4 +595,4 @@ const Update = () => {
   );
 };
 
-export default Update;
+export default Product;

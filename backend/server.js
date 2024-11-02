@@ -6,6 +6,7 @@ import commodityRouter from './routes/commodityRoute.js';
 import emailRouter from './routes/emailRouter.js';
 import adminRouter from './routes/adminRoute.js';
 import userRouter from './routes/userRoute.js';
+import farmerRouter from './routes/farmerRoute.js';
 
 
 // Declarations
@@ -24,6 +25,7 @@ app.use('/api/commodity', commodityRouter);
 app.use('/api/email', emailRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/user', userRouter);
+app.use('/api/farmer', farmerRouter);
 
 app.get('/', (req, res) => {
     res.send('API is WORKING...')

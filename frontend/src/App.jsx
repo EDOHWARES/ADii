@@ -8,8 +8,9 @@ import { ThreeCircles } from 'react-loader-spinner';
 import Auth from './pages/Auth';
 import Home from './pages/Home';
 import FarmersList from './pages/FarmersList/FarmersList';
+import FarmerData from './pages/Admin/FarmerData/FarmerData';
 import AdminAuth from './pages/Admin/AdminAuth';
-import Update from './pages/Admin/Update';
+import Product from './pages/Admin/Product';
 import Error from './pages/Error';
 import ResetPassword from './pages/resetPassword';
 import About from './pages/About';
@@ -18,7 +19,7 @@ import Hero from './components/Hero/Hero';
 import Footer from './components/Footer/Footer';
 
 function App() {
-  const excludedRoutes = ['/auth', '/admin/auth', '/admin/dashboard', '/auth/reset-password'];
+  const excludedRoutes = ['/auth', '/admin/auth', '/admin/products', '/auth/reset-password'];
   const [loading, setLoading] = useState(false);
   const location = useLocation();
 
@@ -63,7 +64,8 @@ function App() {
               <Route path='/farmers-list' element={<FarmersList />} />
               <Route path='/auth' element={<Auth />} />
               <Route path='/admin/auth' element={<AdminAuth />} />
-              <Route path='/admin/dashboard' element={<Update />} />
+              <Route path='/admin/products/' element={<Product />} />
+              <Route path='/admin/farmers-data' element={<FarmerData />} />
               <Route path='/auth/reset-password' element={<ResetPassword />} />
               <Route path='*' element={<Error />} />
             </Routes>

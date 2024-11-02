@@ -44,7 +44,7 @@ const FarmersList = () => {
               <th className="font-semibold py-5">Farmer Name</th>
               <th className="font-semibold py-5">Crops</th>
               <th className="font-semibold py-5">Contact</th>
-              <th className="font-semibold py-5">Farmer Name</th>
+              <th className="font-semibold py-5">Farm Name</th>
             </tr>
           </thead>
           <tbody>
