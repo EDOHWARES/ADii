@@ -24,7 +24,19 @@ const createFarmer = async (req, res) => {
 
 // Get all farmers
 const getAllFarmers = async (req, res) => {
-
+    try {
+        const farmers = await farmerModel.find();
+        res.status(200).json({
+            success: true,
+            farmers
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching farmers',
+            error: error.message
+        })
+    }
 };
 
 // Get a single farmer by ID
