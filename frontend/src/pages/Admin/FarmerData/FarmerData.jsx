@@ -6,11 +6,14 @@ import { MdMenu } from "react-icons/md";
 import { AppContext } from "../../../context/StoreContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const FarmerData = () => {
   const {serverUrl} = useContext(AppContext);
   const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [showNav, setShowNav] = useState(false);
+  const navigate = useNavigate();
 
   const [farmers, setFarmers] = useState([]);
   const [editingFarmer, setEditingFarmer] = useState(null);
@@ -22,15 +25,26 @@ const FarmerData = () => {
     farmName: "",
   });
 
+  // Check if authenticated
+  useEffect(() => {
+    const auth = localStorage.getItem('adminToken');
+    if (!auth) {
+      navigate('/admin/auth');
+    };
+  }, []);
+
   // Fetch initial data
   useEffect(() => {
+    setLoading(true);
     async function fetchData() {
       const resp = await axios.get(`${serverUrl}/api/farmer/`);
       if (resp.data.success) {
         setFarmers(resp.data.farmers)
         toast.success('Farm data fetched')
+        setLoading(false);
       } else {
-        toast.error(resp.data.message)
+        toast.error(resp.data.message);
+        setLoading(false);
       };
     }
     fetchData();
@@ -53,8 +67,8 @@ const FarmerData = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
     if (editingFarmer) {
-      // const updatedFarmer = await updateFarmer(editingFarmer._id, formData);
       let updatedFarmer = await axios.put(`${serverUrl}/api/farmer/${formData._id}`, {
         farmerName: formData.farmerName,
         location: formData.location,
@@ -79,6 +93,7 @@ const FarmerData = () => {
       setFarmers((prev) => [...prev, resp.data.farmer]);
       
     }
+    setSubmitting(false);
     setFormData({
       location: "",
       farmerName: "",
@@ -158,13 +173,13 @@ const FarmerData = () => {
             />
           </div>
 
-          <div className="mt-10 w-full">
+          <div className="mt-10 md:mt-0 w-full">
             <form
               onSubmit={handleSubmit}
               className="mb-6 p-4 bg-gray-100 rounded shadow w-full"
             >
               <h3 className="text-xl font-semibold mb-4">
-                {editingFarmer ? "Edit Farmer" : "Add Farmer"}
+                {submitting ? ('Loading...') : (editingFarmer ? "Edit Farmer" : "Add Farmer")}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
