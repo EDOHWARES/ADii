@@ -67,7 +67,35 @@ const getFarmerById = async (req, res) => {
 
 // Update a farmer by ID
 const updateFarmerById = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const {farmerName, location, crop, contact, farmName} = req.body;
 
+        const farmer = await farmerModel.findByIdAndUpdate(
+            id,
+            {farmerName, location, crop, contact, farmName},
+            {new: true, runValidators: true}
+        );
+
+        if (!farmer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Farmer not found'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Farmer updated successfully',
+            farmer
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error updating farmer',
+            error: error.message
+        })
+    }
 };
 
 // Delete a farmer by ID
