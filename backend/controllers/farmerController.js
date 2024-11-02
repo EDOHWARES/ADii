@@ -100,7 +100,28 @@ const updateFarmerById = async (req, res) => {
 
 // Delete a farmer by ID
 const deleteAFarmer = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const farmer = await farmerModel.findByIdAndDelete(id);
 
+        if (!farmer) {
+            return res.status(404).json({
+                success: false,
+                message: 'Farmer not found',
+            })
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Farmer deleted successfully',
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error deleting farmer',
+            error: error.message
+        })
+    }
 };
 
 export {createFarmer, getAllFarmers, getFarmerById, updateFarmerById, deleteAFarmer};
