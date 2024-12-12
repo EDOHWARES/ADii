@@ -48,4 +48,23 @@ const saveEmail = async (req, res) => {
 
 };
 
-export default saveEmail;
+const fetchNewsletterSubscribers = async (req, res) => {
+    try {
+      const subscribers = await emailModel.find({});
+      res.json({
+        success: true,
+        subscribers
+      })
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Server Error',
+        error: error.message
+      })
+    }
+  };
+
+export {
+    saveEmail,
+    fetchNewsletterSubscribers,
+};

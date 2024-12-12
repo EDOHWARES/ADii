@@ -17,6 +17,7 @@ import About from './pages/About';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Footer from './components/Footer/Footer';
+import NewsletterSubscribers from './pages/Admin/NewsletterSubscribers/NewsletterSubscribers';
 
 function App() {
   const excludedRoutes = ['/auth', '/admin/auth', '/admin/products', '/auth/reset-password'];
@@ -65,6 +66,7 @@ function App() {
               <Route path='/auth' element={<Auth />} />
               <Route path='/admin/auth' element={<AdminAuth />} />
               <Route path='/admin/products/' element={<Product />} />
+              <Route path='/admin/newsletter-subscribers' element={<NewsletterSubscribers />} />
               <Route path='/admin/farmers-data' element={<FarmerData />} />
               <Route path='/auth/reset-password' element={<ResetPassword />} />
               <Route path='*' element={<Error />} />

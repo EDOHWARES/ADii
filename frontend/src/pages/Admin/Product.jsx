@@ -406,13 +406,6 @@ const Product = () => {
               {showNav && (
                 <div className="absolute top-[1.6rem] bg-[#f1f1f1] border-2 shadow-2xl w-[13rem] flex flex-col items-center justify-center text-sm font-medium text-gray-500">
                   <Link
-                    to={"/"}
-                    className="border-2 w-full p-2 cursor-pointer hover:bg-white duration-300"
-                  >
-                    Home Page
-                  </Link>
-
-                  <Link
                     to={'/admin/products'}
                     className="border-2 w-full p-2 cursor-pointer duration-300"
                   >
@@ -424,6 +417,13 @@ const Product = () => {
                     className="border-2 w-full p-2 cursor-pointer duration-300"
                   >
                     Farmers Data
+                  </Link>
+
+                  <Link
+                    to={'/admin/newsletter-subscribers'}
+                    className="border-2 w-full p-2 cursor-pointer duration-300"
+                  >
+                    Newsletter Subscribers
                   </Link>
                 </div>
               )}

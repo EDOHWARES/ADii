@@ -11,7 +11,7 @@ import farmerRouter from './routes/farmerRoute.js';
 
 // Declarations
 const app = express();
-const port = 3003;
+const port = process.env.PORT || 3003;
 
 // Middlewares
 app.use(express.json());

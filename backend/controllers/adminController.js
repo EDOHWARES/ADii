@@ -103,6 +103,7 @@ const clearAllCommodities = async (req, res) => {
   }
 };
 
+// Update commodity
 const updateCommodity = async (req, res) => {
   const { commodityName, updatedPrices } = req.body;
 

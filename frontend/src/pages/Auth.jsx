@@ -114,6 +114,7 @@ const Auth = () => {
                 value={!resetPassword ? formData.email : passwordEmail}
                 className="w-full h-[48px] border border-[#D7D7D7] outline-none focus:outline-1 focus:border-transparent focus:outline-[#6CBC37] rounded-[6px] text-[#4e4e4e] placeholder:text-[#C6C6C6] bg-transparent indent-4"
                 placeholder="e.g omitoyinayomide20@gmail.com"
+                required
                 type="email"
                 name="email"
                 id="userEmail"
@@ -133,6 +134,7 @@ const Auth = () => {
                     value={formData.password}
                     className="w-full h-full outline-none text-[#4e4e4e] placeholder:text-[#C6C6C6] bg-transparent indent-4 flex items-center justify-center"
                     type={showPassword ? "text" : "password"}
+                    required
                     name="password"
                     id="userPassword"
                     placeholder="**********"
